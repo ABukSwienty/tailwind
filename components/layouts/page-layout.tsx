@@ -1,5 +1,7 @@
 import Head from "next/head";
+import { Button } from "../atoms/button";
 import Nav from "../molecules/nav";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,16 +13,20 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
 
       <header className="fixed w-screen py-4 px-4">
         <Nav>
-          <Nav.Item>Home</Nav.Item>
-          <Nav.Item>nav to</Nav.Item>
-          <Nav.Item>nav to</Nav.Item>
-          <Nav.Item>nav to</Nav.Item>
+          <Nav.Link label="nav to" />
+          <Nav.Link label="nav to" />
+          <Nav.Link label="nav to" />
+          <Nav.Item>
+            <Button color="accent" size="sm" trailingIcon={PaperAirplaneIcon}>
+              Get in touch
+            </Button>
+          </Nav.Item>
         </Nav>
       </header>
 
-      <main className="flex flex-col pt-16">{children}</main>
+      <main className="flex flex-col">{children}</main>
 
-      <footer className="absolute bottom-0">footer</footer>
+      <footer className="">footer</footer>
     </>
   );
 };
