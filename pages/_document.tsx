@@ -24,11 +24,11 @@ class MyDocument extends Document {
           <meta name="keywords" content="KEYWORDS TAG" />
           <meta name="author" content="Alexander Buk-Swienty" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital@0;1&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
             rel="stylesheet"
           />
         </Head>
-        <body className="overflow-x-hidden bg-accent font-vietnam">
+        <body className="overflow-x-hidden bg-accent font-vietnam antialiased">
           <div id="overlay" className="relative z-50" />
           <Main />
           <NextScript />
