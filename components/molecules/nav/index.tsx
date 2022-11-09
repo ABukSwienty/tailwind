@@ -1,5 +1,6 @@
 import { Flex } from "../../atoms/flex";
 import NavItem from "./item";
+import NavLink from "./link";
 export interface NavProps {
   children: React.ReactNode;
 }
@@ -15,6 +16,7 @@ const Component = ({ children }: NavProps) => {
 };
 
 const Nav = Object.assign(Component, {
+  Link: NavLink,
   Item: NavItem,
 });
 
