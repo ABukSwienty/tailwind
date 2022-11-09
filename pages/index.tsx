@@ -1,21 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { Flex } from "../components/atoms/flex";
+import PageLayout from "../components/layouts/page-layout";
+import Nav from "../components/molecules/nav";
 
 const Home: NextPage = () => {
-  return (
-    <div>
-      <Head>
-        <title>Tailwind</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <header>header</header>
-
-      <main>main</main>
-
-      <footer>footer</footer>
-    </div>
-  );
+  return <PageLayout>hello</PageLayout>;
 };
 
 export default Home;
