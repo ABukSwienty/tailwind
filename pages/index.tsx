@@ -1,11 +1,19 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import { Flex } from "../components/atoms/flex";
+import Section from "../components/atoms/section";
 import PageLayout from "../components/layouts/page-layout";
-import Nav from "../components/molecules/nav";
 
 const Home: NextPage = () => {
-  return <PageLayout>hello</PageLayout>;
+  return (
+    <PageLayout>
+      <Section className="flex items-end px-4 py-8" color="brand">
+        <h1 className="text-9xl font-black text-white">
+          <span className="font-garamond font-light italic">turn</span> HEADWIND{" "}
+          <br />
+          <span className="font-garamond font-light italic">into</span> TAILWIND
+        </h1>
+      </Section>
+    </PageLayout>
+  );
 };
 
 export default Home;
