@@ -11,7 +11,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="fixed w-screen py-4 px-4">
+      {/* <header className="fixed w-screen py-4 px-4">
         <Nav>
           <Nav.Link label="nav to" />
           <Nav.Link label="nav to" />
@@ -22,11 +22,11 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
             </Button>
           </Nav.Item>
         </Nav>
-      </header>
+      </header> */}
 
-      <main className="flex flex-col">{children}</main>
+      <main className="flex flex-col overflow-x-hidden">{children}</main>
 
-      <footer className="">footer</footer>
+      {/* <footer className="">footer</footer> */}
     </>
   );
 };
