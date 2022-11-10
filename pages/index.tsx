@@ -1,17 +1,17 @@
+import { ArrowDownIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import type { NextPage } from "next";
+import { Button } from "../components/atoms/button";
 import Section from "../components/atoms/section";
+import TextHighlight from "../components/atoms/text-highlight";
 import PageLayout from "../components/layouts/page-layout";
+import Intro from "../components/organisms/intro";
+import Landing from "../components/organisms/landing";
 
 const Home: NextPage = () => {
   return (
     <PageLayout>
-      <Section className="flex items-end px-4 py-8" color="brand">
-        <h1 className="text-9xl font-black text-white">
-          <span className="font-garamond font-light italic">turn</span> HEADWIND{" "}
-          <br />
-          <span className="font-garamond font-light italic">into</span> TAILWIND
-        </h1>
-      </Section>
+      <Landing />
+      <Intro />
     </PageLayout>
   );
 };
