@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("./colors.tailwind");
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -11,6 +12,10 @@ module.exports = {
       fontFamily: {
         vietnam: ["Be Vietnam Pro", "sans-serif"],
         garamond: ["Cormorant Garamond", "serif"],
+      },
+      screens: {
+        xs: "475px",
+        ...defaultTheme.screens,
       },
     },
   },
