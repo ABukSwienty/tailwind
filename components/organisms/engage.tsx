@@ -59,9 +59,6 @@ const variants: Partial<FramerVariants> = {
       ease: "anticipate",
     },
   },
-  whileHover: {
-    scale: 1.05,
-  },
 };
 
 const animatedRenderables = cards.map((card, index) => (
@@ -105,7 +102,7 @@ const Engage = () => {
         <Flex
           direction="row"
           wrap="wrap"
-          className="hidden w-full gap-4 space-y-0 overflow-x-hidden pt-0 xs:flex lg:flex-col lg:space-y-16 lg:pt-64"
+          className="hidden h-fit w-full gap-4 space-y-0 overflow-x-hidden pt-0 xs:flex lg:flex-col lg:space-y-16 lg:pt-64"
         >
           {animatedRenderables}
         </Flex>

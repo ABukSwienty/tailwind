@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 
 import PageLayout from "../components/layouts/page-layout";
+import Cases from "../components/organisms/cases";
 import Engage from "../components/organisms/engage";
 
 import Go from "../components/organisms/go";
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
       <See />
       <Go />
       <Engage />
+      <Cases />
       {/* <About /> */}
     </PageLayout>
   );

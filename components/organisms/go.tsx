@@ -20,11 +20,11 @@ const cards = [
 
 const variants: Partial<FramerVariants> = {
   initial: {
-    y: 100,
+    x: -100,
     opacity: 0,
   },
   animate: {
-    y: 0,
+    x: 0,
     opacity: 1,
     transition: {
       type: "spring",
@@ -33,7 +33,7 @@ const variants: Partial<FramerVariants> = {
     },
   },
   exit: {
-    y: -100,
+    x: -100,
     opacity: 0,
     transition: {
       ease: "anticipate",

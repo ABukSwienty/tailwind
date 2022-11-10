@@ -26,9 +26,6 @@ const DEFAULT_VARIANTS: Partial<FramerVariants> = {
       ease: "anticipate",
     },
   },
-  whileHover: {
-    scale: 1.05,
-  },
 };
 
 export interface CardProps {
@@ -63,6 +60,7 @@ const Card = ({
   });
 
   const animatedProps = {
+    ref,
     variants,
     initial: "initial",
     animate: inView ? "animate" : "exit",
@@ -70,11 +68,7 @@ const Card = ({
   };
 
   return (
-    <motion.aside
-      ref={ref}
-      {...(isAnimated ? animatedProps : {})}
-      className={classNames}
-    >
+    <motion.aside {...(isAnimated ? animatedProps : {})} className={classNames}>
       <Title size="xl" className="md:font-2xl font-black">
         {title}
       </Title>
