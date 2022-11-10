@@ -31,11 +31,7 @@ const spinnerColors: SpringColors = {
   dark: "text-gray-800",
 };
 
-export const Spinner = ({
-  size = "sm",
-  color = "brand",
-  className,
-}: SpinnerProps) => {
+const Spinner = ({ size = "sm", color = "brand", className }: SpinnerProps) => {
   const classNames = setClasses([
     "animate-spin",
     spinnerSizes[size],
@@ -68,3 +64,5 @@ export const Spinner = ({
     </div>
   );
 };
+
+export default Spinner;
