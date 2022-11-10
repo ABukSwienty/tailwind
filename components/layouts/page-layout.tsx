@@ -3,10 +3,12 @@ import Button from "../atoms/button";
 import Nav from "../molecules/nav";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import WindowProgressBar from "../atoms/window-progress-bar";
+import Loading from "../molecules/loading";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
+      {/* <Loading /> */}
       <Head>
         <title>Tailwind</title>
         <link rel="icon" href="/favicon.ico" />
