@@ -7,7 +7,7 @@ import Title from "../atoms/title";
 const Intro = () => (
   <Section
     color="accent"
-    className="grid min-h-screen grow grid-cols-1 gap-16 py-32 px-8 md:grid-cols-2 md:px-0"
+    className="grid min-h-screen grid-cols-1 gap-16 py-32 px-8 md:grid-cols-2 md:px-0"
   >
     <div className="h-fit self-end pl-0 font-black text-white md:pl-16">
       <Title

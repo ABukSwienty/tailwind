@@ -1,4 +1,5 @@
 import { Flex } from "../../atoms/flex";
+import Logo from "../../atoms/logo";
 import NavItem from "./item";
 import NavLink from "./link";
 export interface NavProps {
@@ -7,7 +8,9 @@ export interface NavProps {
 const Component = ({ children }: NavProps) => {
   return (
     <nav className="flex h-full w-full items-center justify-between">
-      <div>logo</div>
+      <div>
+        <Logo className="w-24 cursor-pointer text-white" />
+      </div>
       <Flex as="ul" direction="row" align="center">
         {children}
       </Flex>

@@ -41,7 +41,7 @@ export const buttonColors: SpringColors = {
     "bg-brand-700 text-white hover:bg-brand-600 ring-brand-600 focus:ring-2 focus:ring-offset-2",
   secondary: "text-brand-600 ring-2 ring-brand-500 focus:ring-offset-2",
   accent:
-    "bg-accent-700 text-white hover:bg-accent-600 ring-1 ring-accent-600 focus:ring-2 focus:ring-offset-2",
+    "bg-accent-700 text-white hover:bg-accent-600 ring-accent-600 focus:ring-2 focus:ring-offset-2",
   success:
     "bg-success-700 text-white hover:bg-success-600 ring-1 ring-success-600 focus:ring-2 focus:ring-offset-2",
   error:
