@@ -21,11 +21,7 @@ const Section = ({
   className,
   ...rest
 }: SectionProps) => {
-  const classNames = setClasses([
-    "h-fit w-screen",
-    className,
-    sectionColors[color],
-  ]);
+  const classNames = setClasses(["h-fit", className, sectionColors[color]]);
 
   return (
     <section className={classNames} {...rest}>
