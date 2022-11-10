@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Button } from "../atoms/button";
+import Button from "../atoms/button";
 import Nav from "../molecules/nav";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
@@ -24,7 +24,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
         </Nav>
       </header> */}
 
-      <main className="flex flex-col overflow-x-hidden">{children}</main>
+      <main>{children}</main>
 
       {/* <footer className="">footer</footer> */}
     </>
