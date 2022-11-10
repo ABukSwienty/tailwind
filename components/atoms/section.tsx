@@ -22,12 +22,16 @@ const Section = ({
   ...rest
 }: SectionProps) => {
   const classNames = setClasses([
-    "h-fit min-h-screen w-screen",
+    "h-fit w-screen",
     className,
     sectionColors[color],
   ]);
 
-  return <section className={classNames}>{children}</section>;
+  return (
+    <section className={classNames} {...rest}>
+      {children}
+    </section>
+  );
 };
 
 export default Section;
