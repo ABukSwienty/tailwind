@@ -7,7 +7,7 @@ import { SpringColors } from "../../types/spring-colors";
 import { SpringSizes } from "../../types/spring-sizes";
 import setClasses from "../../util/set-classes";
 import setVariants from "../../util/set-variants";
-import { Spinner } from "./spinner";
+import Spinner from "./spinner";
 
 export interface ButtonProps
   extends Omit<React.ComponentPropsWithoutRef<"button">, OmitFramerProps> {
@@ -59,7 +59,7 @@ export const BUTTON_VARIANTS: Partial<FramerVariants> = {
   },
 };
 
-export const Button = ({
+const Button = ({
   size = "md",
   color = "brand",
   leadingIcon: LeadingIcon,
@@ -79,7 +79,7 @@ export const Button = ({
   ]);
   const iconClassNames = setClasses([
     iconSizes[size],
-    TrailingIcon ? "ml-3" : "mr-3",
+    TrailingIcon ? "ml-1 md:ml-3" : "mr-1 md:mr-3",
   ]);
   return (
     <motion.button
@@ -108,3 +108,5 @@ export const Button = ({
     </motion.button>
   );
 };
+
+export default Button;
