@@ -12,7 +12,7 @@ const Home: NextPage = () => {
 
       <header></header>
 
-      <main className="bg-brand flex h-screen w-screen items-center justify-center">
+      <main className="flex h-screen w-screen items-center justify-center bg-[#D15B64] text-white">
         <p>Coming soon</p>
       </main>
 
