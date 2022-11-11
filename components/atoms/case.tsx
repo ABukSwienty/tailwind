@@ -42,7 +42,7 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
       <Flex
         direction="col"
         justify="between"
-        className="h-96 w-80 cursor-pointer rounded-lg bg-accent pt-4 shadow-md"
+        className="h-80 w-72 cursor-pointer rounded-lg bg-accent pt-4 shadow-md md:h-96 md:w-80"
       >
         <Title size="2xl" className="px-4 font-black">
           {title}

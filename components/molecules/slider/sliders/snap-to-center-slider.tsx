@@ -69,7 +69,7 @@ export const SnapToCenterSlider = ({
     <motion.div
       ref={sliderRef}
       animate={controls}
-      className="relative h-fit w-full cursor-grab py-4"
+      className="relative flex h-fit w-full cursor-grab items-center py-4"
       drag="x"
       dragElastic={1}
       dragConstraints={{ left: 0, right: 0 }}

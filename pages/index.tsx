@@ -1,13 +1,15 @@
 import type { NextPage } from "next";
 
 import PageLayout from "../components/layouts/page-layout";
+import Accelerate from "../components/organisms/accelerate";
 import Cases from "../components/organisms/cases";
-import Engage from "../components/organisms/engage";
+import Communicate from "../components/organisms/communicate";
+import Educate from "../components/organisms/educate";
 
-import Go from "../components/organisms/go";
 import Intro from "../components/organisms/intro";
 import Landing from "../components/organisms/landing";
-import See from "../components/organisms/see";
+import Prepare from "../components/organisms/prepare";
+import Understand from "../components/organisms/understand";
 
 const containers = [];
 
@@ -16,9 +18,12 @@ const Home: NextPage = () => {
     <PageLayout>
       <Landing />
       <Intro />
-      <See />
-      <Go />
-      <Engage />
+      <Understand />
+      <Accelerate />
+      <Communicate />
+      <Educate />
+      <Prepare />
+
       <Cases />
       {/* <About /> */}
     </PageLayout>

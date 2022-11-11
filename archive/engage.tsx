@@ -1,12 +1,11 @@
-import { motion, useInView, Variants } from "framer-motion";
-import React, { useMemo, useRef } from "react";
-import { FramerVariants } from "../../types/framer-variants";
-import Card from "../atoms/card";
-import { Flex } from "../atoms/flex";
-import Section from "../atoms/section";
-import TextHighlight from "../atoms/text-highlight";
-import Title from "../atoms/title";
-import Slider from "../molecules/slider";
+import React from "react";
+import Card from "../components/atoms/card";
+import { Flex } from "../components/atoms/flex";
+import Section from "../components/atoms/section";
+import TextHighlight from "../components/atoms/text-highlight";
+import Title from "../components/atoms/title";
+import Slider from "../components/molecules/slider";
+import { FramerVariants } from "../types/framer-variants";
 
 /* Content Creation
 Get help in transforming your sustainability work into engaging content and creative campaigns in any media from LinkedIn to Instagram and TikTok 

@@ -1,9 +1,9 @@
-import { FramerVariants } from "../../types/framer-variants";
-import Card from "../atoms/card";
-import { Flex } from "../atoms/flex";
-import Section from "../atoms/section";
-import TextHighlight from "../atoms/text-highlight";
-import Title from "../atoms/title";
+import { FramerVariants } from "../types/framer-variants";
+import Card from "../components/atoms/card";
+import { Flex } from "../components/atoms/flex";
+import Section from "../components/atoms/section";
+import TextHighlight from "../components/atoms/text-highlight";
+import Title from "../components/atoms/title";
 
 const cards = [
   {

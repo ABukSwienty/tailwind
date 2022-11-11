@@ -1,6 +1,7 @@
 import { Variants, useInView, motion } from "framer-motion";
 import { useMemo, useRef } from "react";
 import { FramerVariants } from "../../types/framer-variants";
+import { SpringColors } from "../../types/spring-colors";
 import setClasses from "../../util/set-classes";
 import setVariants from "../../util/set-variants";
 import Title from "./title";
@@ -28,12 +29,18 @@ const DEFAULT_VARIANTS: Partial<FramerVariants> = {
   },
 };
 
+const cardColors: Pick<SpringColors, "brand" | "accent"> = {
+  brand: "bg-brand text-white",
+  accent: "bg-accent text-gray-700",
+};
+
 export interface CardProps {
   isAnimated?: boolean;
   title: string;
   content: string;
   className?: string;
   variants?: Partial<FramerVariants>;
+  color?: keyof typeof cardColors;
 }
 
 const Card = ({
@@ -42,9 +49,11 @@ const Card = ({
   content,
   className,
   variants: variantProps,
+  color = "brand",
 }: CardProps) => {
   const classNames = setClasses([
-    "flex h-72 xs:w-64 flex-col justify-evenly whitespace-normal rounded-lg bg-brand p-4 shadow-md xs:h-72 lg:h-96 lg:w-80",
+    "flex space-y-12 xs:space-y-12 py-4 h-96 md:h-fit xs:py-12 xs:w-64 flex-col justify-evenly whitespace-normal rounded-lg p-4 shadow-md lg:w-80",
+    cardColors[color],
     className,
   ]);
 

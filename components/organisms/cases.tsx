@@ -9,7 +9,7 @@ const Cases = () => {
   return (
     <Section className="min-h-screen space-y-16 py-32 text-white" color="brand">
       <Flex direction="col" align="start" className="mx-auto w-fit px-8">
-        <Title size="5xl" className="text-8xl font-black">
+        <Title size="4xl" className="font-black md:text-8xl">
           Cases
         </Title>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
