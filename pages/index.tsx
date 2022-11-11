@@ -10,11 +10,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>header</header>
+      <header></header>
 
-      <main>main</main>
+      <main className="bg-brand flex h-screen w-screen items-center justify-center">
+        <p>Coming soon</p>
+      </main>
 
-      <footer>footer</footer>
+      <footer></footer>
     </div>
   );
 };
