@@ -1,28 +1,47 @@
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
+import { useContext, useSyncExternalStore } from "react";
+import useNavTo from "../../../hooks/use-nav-to";
+import { GlobalContext } from "../../../provider/global";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
-import NavItem from "./item";
 import NavLink from "./link";
 export interface NavProps {
   children: React.ReactNode;
 }
 const Component = ({ children }: NavProps) => {
+  const { introRef, navHideStore, currentColor } = useContext(GlobalContext);
+
+  const color = useSyncExternalStore(
+    currentColor.subscribe,
+    () => currentColor.get().color,
+    () => currentColor.get().color
+  );
+
+  const navIntro = useNavTo(introRef);
+
+  const handleNavIntro = () => {
+    navHideStore.set({ show: true, callback: navIntro });
+  };
+
   return (
-    <nav className="flex h-full w-full items-center justify-between">
-      <div>
+    <nav className="hidden h-full w-full items-center justify-between md:flex">
+      <motion.div
+        onClick={handleNavIntro}
+        whileTap={{
+          scale: 0.9,
+        }}
+      >
         <Logo className="w-24 cursor-pointer text-white" />
-      </div>
-      <Flex as="ul" direction="row" align="center" className="hidden md:flex">
+      </motion.div>
+      <Flex as="ul" direction="row" align="center">
         {children}
       </Flex>
-      <Bars3Icon className="block h-6 w-6 cursor-pointer text-white md:hidden" />
     </nav>
   );
 };
 
 const Nav = Object.assign(Component, {
   Link: NavLink,
-  Item: NavItem,
 });
 
 export default Nav;

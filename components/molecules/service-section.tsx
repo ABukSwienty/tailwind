@@ -7,13 +7,14 @@ import Title from "../atoms/title";
 import Slider from "./slider";
 
 export interface ServiceSectionProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   tagline: string;
   renderables: JSX.Element[];
   sliderRenderables: JSX.Element[];
   offsetBy?: number;
   color?: keyof Pick<SpringColors, "light" | "accent">;
+  innerRef?: React.RefObject<HTMLElement>;
 }
 
 const ServiceSection = ({
@@ -24,6 +25,7 @@ const ServiceSection = ({
   sliderRenderables,
   offsetBy = 0,
   color = "accent",
+  innerRef,
 }: ServiceSectionProps) => {
   const { lastWord, withoutLastWord } = retrieveLastWord(tagline);
   return (
@@ -32,13 +34,16 @@ const ServiceSection = ({
         color === "accent" ? "text-white" : "text-gray-700"
       }`}
       color={color}
+      innerRef={innerRef}
     >
       <div className="pl-4 text-left md:pl-8 md:text-right">
         <div className="md:sticky md:top-1/3">
-          <Title tag="h3" className="font-black">
-            {title.toLocaleUpperCase()}
-          </Title>
-          <p>{description}</p>
+          {title && (
+            <Title tag="h3" className="font-black">
+              {title.toLocaleUpperCase()}
+            </Title>
+          )}
+          {description && description}
           <Title tag="h2" className="mt-4 font-black lg:text-7xl" size="4xl">
             {withoutLastWord} <TextHighlight text={lastWord} />
           </Title>
