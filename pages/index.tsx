@@ -21,8 +21,8 @@ const Home: NextPage = () => {
       <Educate />
       <Prepare />
 
+      <About />
       <Cases />
-      {/* <About /> */}
     </PageLayout>
   );
 };

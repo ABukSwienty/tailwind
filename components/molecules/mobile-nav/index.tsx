@@ -80,6 +80,46 @@ const Item = ({
   </motion.li>
 );
 
+const navToggleColors = {
+  brand: "text-white",
+  light: "text-gray-700",
+  accent: "text-brand",
+  dark: "text-white",
+};
+
+const NavToggle = ({ onClick }: { onClick: () => void }) => {
+  const { mobileNavStore, currentColor } = useContext(GlobalContext);
+  const show = useSyncExternalStore(
+    mobileNavStore.subscribe,
+    () => mobileNavStore.get().show,
+    () => mobileNavStore.get().show
+  );
+
+  const color = useSyncExternalStore(
+    currentColor.subscribe,
+    () => currentColor.get().color,
+    () => currentColor.get().color
+  );
+
+  const navToggleColor = color ? navToggleColors[color] : navToggleColors.brand;
+
+  const classNames = `z-50 h-6 w-6 cursor-pointer ${navToggleColor}`;
+
+  return (
+    <motion.button
+      variants={iconVariants}
+      animate={show ? "animate" : "initial"}
+      onClick={onClick}
+      whileTap={{
+        scale: 0.9,
+      }}
+    >
+      {!show && <Bars3Icon className={classNames} />}
+      {show && <XMarkIcon className={classNames} />}
+    </motion.button>
+  );
+};
+
 const Component = ({ children }: { children: React.ReactNode }) => {
   const { mobileNavStore } = useContext(GlobalContext);
 
@@ -109,7 +149,7 @@ const Component = ({ children }: { children: React.ReactNode }) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed top-0 left-0 flex h-screen w-screen flex-col justify-between bg-accent p-4 pb-32"
+            className="fixed top-0 left-0 flex h-screen w-screen flex-col justify-between bg-accent-400 p-4 pb-32"
           >
             <Flex
               as="ul"
@@ -138,7 +178,8 @@ const Component = ({ children }: { children: React.ReactNode }) => {
         <motion.div>
           <Logo className="w-24 cursor-pointer text-white" />
         </motion.div>
-        <motion.div
+        <NavToggle onClick={toggleNav} />
+        {/* <motion.div
           variants={iconVariants}
           animate={show ? "animate" : "initial"}
           onClick={toggleNav}
@@ -152,7 +193,7 @@ const Component = ({ children }: { children: React.ReactNode }) => {
           {show && (
             <XMarkIcon className="z-50 h-6 w-6 cursor-pointer text-white" />
           )}
-        </motion.div>
+        </motion.div> */}
       </Flex>
     </nav>
   );

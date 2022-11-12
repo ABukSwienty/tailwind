@@ -1,6 +1,8 @@
 import React, { createContext, useRef, useSyncExternalStore } from "react";
+import { sectionColors } from "../components/atoms/section";
 import useScrollObserver from "../hooks/use-scroll-observer";
 import useSubscribableStore from "../hooks/use-subscribable-store";
+import { SpringColors } from "../types/spring-colors";
 
 export interface GlobalContextInterface {
   introRef: React.RefObject<HTMLElement>;
@@ -15,7 +17,11 @@ export interface GlobalContextInterface {
     typeof useSubscribableStore<{ show: boolean; callback: () => void }>
   >;
   mobileNavStore: ReturnType<typeof useSubscribableStore<{ show: boolean }>>;
-  currentColor: ReturnType<typeof useSubscribableStore<{ color: string }>>;
+  currentColor: ReturnType<
+    typeof useSubscribableStore<{
+      color: keyof typeof sectionColors;
+    }>
+  >;
 }
 
 export const GlobalContext = createContext<GlobalContextInterface>(undefined!);
@@ -30,8 +36,10 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     show: false,
   });
 
-  const currentColor = useSubscribableStore({
-    color: "",
+  const currentColor = useSubscribableStore<{
+    color: keyof typeof sectionColors;
+  }>({
+    color: "brand",
   });
 
   const understandRef = useRef<HTMLElement>(null);
@@ -42,20 +50,6 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
   const introRef = useRef<HTMLElement>(null);
   const casesRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
-
-  /* const { store: sectionStore } = useScrollObserver({
-    observables: [
-      understandRef,
-      accelerateRef,
-      communicateRef,
-      educateRef,
-      prepareRef,
-      introRef,
-      casesRef,
-      aboutRef,
-    ],
-    observableAttribute: "data-color",
-  }); */
 
   return (
     <GlobalContext.Provider

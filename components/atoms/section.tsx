@@ -11,13 +11,15 @@ export interface SectionProps
   innerRef?: React.RefObject<HTMLElement>;
 }
 
-const sectionColors: Pick<SpringColors, "brand" | "accent" | "light" | "dark"> =
-  {
-    brand: "bg-brand",
-    accent: "bg-accent",
-    light: "bg-gray-50",
-    dark: "bg-gray-800",
-  };
+export const sectionColors: Pick<
+  SpringColors,
+  "brand" | "accent" | "light" | "dark"
+> = {
+  brand: "bg-brand",
+  accent: "bg-accent",
+  light: "bg-gray-50",
+  dark: "bg-gray-800",
+};
 
 const Section = ({
   children,

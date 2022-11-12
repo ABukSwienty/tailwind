@@ -17,7 +17,10 @@ const Cases = () => {
         <Title size="4xl" className="font-black md:text-8xl">
           Cases
         </Title>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p>
+          Here are som of the clients we are helping turn headwind into
+          tailwind.
+        </p>
       </Flex>
       <Flex
         direction="row"
