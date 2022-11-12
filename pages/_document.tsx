@@ -29,7 +29,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body className="h-full bg-accent font-vietnam antialiased">
-          <div id="overlay" className="relative z-50" />
+          <div id="overlay" className="relative z-[9999]" />
           <Main />
           <NextScript />
         </body>

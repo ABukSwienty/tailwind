@@ -12,12 +12,15 @@
     "@heroicons/react": "^2.0.13",
     "framer-motion": "^7.6.5",
     "next": "^13.0.2",
+    "nodemailer": "^6.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hot-toast": "^2.4.0"
+    "react-hot-toast": "^2.4.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "18.11.9",
+    "@types/nodemailer": "^6.4.6",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
     "autoprefixer": "^10.4.13",

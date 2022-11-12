@@ -22,6 +22,7 @@ export interface GlobalContextInterface {
       color: keyof typeof sectionColors;
     }>
   >;
+  modalStore: ReturnType<typeof useSubscribableStore<{ show: boolean }>>;
 }
 
 export const GlobalContext = createContext<GlobalContextInterface>(undefined!);
@@ -40,6 +41,10 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     color: keyof typeof sectionColors;
   }>({
     color: "brand",
+  });
+
+  const modalStore = useSubscribableStore<{ show: boolean }>({
+    show: false,
   });
 
   const understandRef = useRef<HTMLElement>(null);
@@ -65,6 +70,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
         navHideStore,
         mobileNavStore,
         currentColor,
+        modalStore,
       }}
     >
       {children}

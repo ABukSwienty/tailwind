@@ -8,11 +8,13 @@ import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 
 const Intro = () => {
-  const { introRef, understandRef } = useContext(GlobalContext);
+  const { introRef, understandRef, modalStore } = useContext(GlobalContext);
 
   const navTo = useNavTo(understandRef, {
     behavior: "smooth",
   });
+
+  const handleModal = () => modalStore.set({ show: true });
 
   return (
     <Section
@@ -42,6 +44,7 @@ const Intro = () => {
             color="secondary"
             className="ml-0 bg-accent font-semibold ring-offset-accent md:ml-auto"
             trailingIcon={PaperAirplaneIcon}
+            onClick={handleModal}
           >
             Get in touch
           </Button>
