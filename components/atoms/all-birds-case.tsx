@@ -8,6 +8,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "../../hooks/use-media-query";
+import Spinner from "./spinner";
 
 const cases = {
   allBirds: {
@@ -27,6 +28,8 @@ const Case = ({}: CaseProps) => {
   const ref = useRef(null);
 
   const [isHovering, setIsHovering] = useState(false);
+
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const inView = useInView(ref);
 
@@ -78,6 +81,15 @@ const Case = ({}: CaseProps) => {
             <Image
               src={cases.allBirds.hover.src}
               alt={cases.allBirds.hover.alt}
+              onLoadingComplete={() => setHasLoaded(true)}
+            />
+          )}
+
+          {isHovering && !hasLoaded && (
+            <Image
+              src={cases.allBirds.src}
+              alt={cases.allBirds.alt}
+              placeholder="blur"
             />
           )}
         </Flex>
