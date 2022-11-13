@@ -59,6 +59,7 @@ const Case = ({}: CaseProps) => {
       }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      className="mb-8"
     >
       <Flex
         direction="col"
