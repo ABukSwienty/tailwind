@@ -2,17 +2,20 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Flex } from "./flex";
 import Title from "./title";
 import AllBirds from "../../public/cases/all-birds.png";
-import AllBirdsFilm from "../../public/cases/all-birds-film.gif";
 import TextileExchange from "../../public/cases/textile-exchange.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 const cases = {
   textileExchange: {
     src: TextileExchange,
     alt: "Textile Exchange logo",
     link: "https://textileexchange.org/2022-conference/",
+  },
+  allBirds: {
+    src: AllBirds,
+    alt: "All Birds logo",
+    link: "https://www.instagram.com/allbirds/",
   },
 };
 

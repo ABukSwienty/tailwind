@@ -6,7 +6,7 @@ const AnimatedLogo = ({ className }: { className: string }) => {
   const classNames = setClasses(["relative", className]);
   return (
     <div className={classNames}>
-      <Image src={Logo} alt="animated log" />
+      <Image priority src={Logo} alt="animated log" />
     </div>
   );
 };

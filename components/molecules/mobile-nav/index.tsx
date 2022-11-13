@@ -11,6 +11,7 @@ import React, {
 import { GlobalContext } from "../../../provider/global";
 import Button from "../../atoms/button";
 import useScrollLock from "../../../hooks/use-scroll-lock";
+import useNavTo from "../../../hooks/use-nav-to";
 
 const wrapperVariants: Variants = {
   initial: {
@@ -120,10 +121,40 @@ const NavToggle = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
+const NavLogo = ({ onClick }: { onClick: () => void }) => {
+  const { mobileNavStore, currentColor } = useContext(GlobalContext);
+  const color = useSyncExternalStore(
+    currentColor.subscribe,
+    () => currentColor.get().color,
+    () => currentColor.get().color
+  );
+
+  const navLogoColor = color ? navToggleColors[color] : navToggleColors.brand;
+
+  /* const navIntro = useNavTo(introRef);
+
+  const handleNavIntro = () => {
+    navHideStore.set({ show: true, callback: navIntro });
+  }; */
+
+  return (
+    <motion.div
+      whileTap={{
+        scale: 0.9,
+      }}
+      onClick={onClick}
+    >
+      <Logo className={`w-24 cursor-pointer ${navLogoColor}`} />
+    </motion.div>
+  );
+};
+
 const Component = ({ children }: { children: React.ReactNode }) => {
-  const { mobileNavStore } = useContext(GlobalContext);
+  const { mobileNavStore, introRef, navHideStore } = useContext(GlobalContext);
 
   const { lock, unlock } = useScrollLock();
+
+  const navIntro = useNavTo(introRef);
 
   const toggleNav = useCallback(() => {
     mobileNavStore.set((prev) => ({ ...prev, show: !prev.show }));
@@ -139,6 +170,10 @@ const Component = ({ children }: { children: React.ReactNode }) => {
     if (show) lock();
     else unlock();
   }, [show, lock, unlock]);
+
+  const handleLogoClick = useCallback(() => {
+    navHideStore.set({ show: true, callback: navIntro });
+  }, [navHideStore, navIntro]);
 
   return (
     <nav className="block h-full w-full md:hidden">
@@ -175,25 +210,8 @@ const Component = ({ children }: { children: React.ReactNode }) => {
         )}
       </AnimatePresence>
       <Flex justify="between" align="center" direction="row">
-        <motion.div>
-          <Logo className="w-24 cursor-pointer text-white" />
-        </motion.div>
+        <NavLogo onClick={handleLogoClick} />
         <NavToggle onClick={toggleNav} />
-        {/* <motion.div
-          variants={iconVariants}
-          animate={show ? "animate" : "initial"}
-          onClick={toggleNav}
-          whileTap={{
-            scale: 0.9,
-          }}
-        >
-          {!show && (
-            <Bars3Icon className="z-50 h-6 w-6 cursor-pointer text-white" />
-          )}
-          {show && (
-            <XMarkIcon className="z-50 h-6 w-6 cursor-pointer text-white" />
-          )}
-        </motion.div> */}
       </Flex>
     </nav>
   );

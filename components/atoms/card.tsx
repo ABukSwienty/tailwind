@@ -77,12 +77,15 @@ const Card = ({
   };
 
   return (
-    <motion.aside {...(isAnimated ? animatedProps : {})} className={classNames}>
+    <motion.article
+      {...(isAnimated ? animatedProps : {})}
+      className={classNames}
+    >
       <Title size="xl" className="md:font-2xl font-black">
         {title}
       </Title>
       <p>{content}</p>
-    </motion.aside>
+    </motion.article>
   );
 };
 

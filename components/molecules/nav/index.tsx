@@ -5,9 +5,18 @@ import { GlobalContext } from "../../../provider/global";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
 import NavLink from "./link";
+
 export interface NavProps {
   children: React.ReactNode;
 }
+
+const textColors = {
+  brand: "text-white",
+  light: "text-gray-700",
+  accent: "text-brand",
+  dark: "text-white",
+};
+
 const Component = ({ children }: NavProps) => {
   const { introRef, navHideStore, currentColor } = useContext(GlobalContext);
 
@@ -23,6 +32,8 @@ const Component = ({ children }: NavProps) => {
     navHideStore.set({ show: true, callback: navIntro });
   };
 
+  const logoColor = color ? textColors[color] : textColors.brand;
+
   return (
     <nav className="hidden h-full w-full items-center justify-between md:flex">
       <motion.div
@@ -31,7 +42,7 @@ const Component = ({ children }: NavProps) => {
           scale: 0.9,
         }}
       >
-        <Logo className="w-24 cursor-pointer text-white" />
+        <Logo className={`w-24 cursor-pointer ${logoColor}`} />
       </motion.div>
       <Flex as="ul" direction="row" align="center">
         {children}

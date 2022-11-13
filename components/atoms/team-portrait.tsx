@@ -64,7 +64,7 @@ const TeamPortrait = ({ name: nameProp }: TeamPortraitProps) => {
       direction="col"
       justify="center"
       align="end"
-      className="h-fit w-fit space-y-4"
+      className="h-fit min-h-[16rem] w-fit min-w-[16rem] space-y-4"
     >
       <div className="relative h-64 w-64 overflow-hidden rounded-lg shadow-md xs:h-72 xs:w-72 sm:h-80 sm:w-80 md:h-96 md:w-96">
         <Image

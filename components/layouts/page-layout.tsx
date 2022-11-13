@@ -2,7 +2,7 @@ import Head from "next/head";
 import Nav from "../molecules/nav";
 import WindowProgressBar from "../atoms/window-progress-bar";
 import useNavTo from "../../hooks/use-nav-to";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { GlobalContext } from "../../provider/global";
 import MobileNav from "../molecules/mobile-nav";
 import Loading from "../molecules/loading";
@@ -44,7 +44,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {/* <Loading /> */}
+      <Loading />
       <Head>
         <title>Tailwind co.</title>
         <link rel="icon" href="/favicon.ico" />
@@ -70,7 +70,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
 
       <main>{children}</main>
 
-      <footer className="bg-brand">footer</footer>
+      <footer className="bg-brand"></footer>
     </>
   );
 };
