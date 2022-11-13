@@ -32,7 +32,10 @@ const Slide = ({ children }: { children: React.ReactNode }) => {
         ease: "easeOut",
       }}
       className="inline-flex h-fit justify-center"
-      style={{ width: size + "%", minWidth: size + "%" }}
+      style={{
+        width: size + "%",
+        minWidth: size + "%",
+      }}
     >
       {children}
     </motion.div>

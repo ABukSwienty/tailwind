@@ -66,7 +66,7 @@ const TeamPortrait = ({ name: nameProp }: TeamPortraitProps) => {
       align="end"
       className="h-fit w-fit space-y-4"
     >
-      <div className="relative h-64 w-64 overflow-hidden rounded-lg shadow-md sm:h-80 sm:w-80 md:h-96 md:w-96">
+      <div className="relative h-64 w-64 overflow-hidden rounded-lg shadow-md xs:h-72 xs:w-72 sm:h-80 sm:w-80 md:h-96 md:w-96">
         <Image
           src={src}
           alt={`Portrait of ${name} - ${title}`}
@@ -75,7 +75,7 @@ const TeamPortrait = ({ name: nameProp }: TeamPortraitProps) => {
       </div>
       <div className="text-right">
         <p className="text-accent-800">{title}</p>
-        <Title size="2xl" className="font-black text-brand">
+        <Title tag="h4" size="xl" className="font-black text-brand">
           {name}
         </Title>
       </div>
