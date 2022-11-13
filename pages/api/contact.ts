@@ -28,9 +28,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const mailData = {
-      from: "email@email.com",
-      to: "email@email.com",
-      subject: `Email from ten4.ink from ${data.email}`,
+      from: process.env.EMAIL_USER,
+      to: "ml@tailwind.how",
+      subject: `Email from tailwind.how from ${data.email}`,
       text: data.message + " | Sent from: " + data.email,
       html: `<div><p>${data.message}</p><p>Sent from:
     ${data.email}</p></div>`,

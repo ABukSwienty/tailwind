@@ -42,7 +42,9 @@ const Component = ({ children }: NavProps) => {
           scale: 0.9,
         }}
       >
-        <Logo className={`w-24 cursor-pointer ${logoColor}`} />
+        <Logo
+          className={`w-24 cursor-pointer transition-colors duration-300 ease-in-out ${logoColor}`}
+        />
       </motion.div>
       <Flex as="ul" direction="row" align="center">
         {children}

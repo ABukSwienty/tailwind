@@ -3,6 +3,7 @@ import { useContext } from "react";
 import useNavTo from "../../hooks/use-nav-to";
 import { GlobalContext } from "../../provider/global";
 import Button from "../atoms/button";
+import CTA from "../atoms/cta";
 import Section from "../atoms/section";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
@@ -13,8 +14,6 @@ const Intro = () => {
   const navTo = useNavTo(understandRef, {
     behavior: "smooth",
   });
-
-  const handleModal = () => modalStore.set({ show: true });
 
   return (
     <Section
@@ -40,18 +39,13 @@ const Intro = () => {
           >
             Read more
           </Button>
-          <Button
-            color="secondary"
-            className="ml-0 bg-accent font-semibold ring-offset-accent md:ml-auto"
-            trailingIcon={PaperAirplaneIcon}
-            onClick={handleModal}
-          >
-            Get in touch
-          </Button>
+          <div className="ml-0 md:ml-auto">
+            <CTA />
+          </div>
         </div>
       </div>
       <div className="font-black text-white md:self-end">
-        <div className="mr-auto w-full space-y-4 text-sm md:w-4/5 md:text-base lg:w-2/3 xl:text-lg">
+        <div className="mr-auto w-full space-y-4 text-sm  md:w-4/5 md:text-base lg:w-2/3 xl:text-lg">
           <p>
             Tailwind Co. is an advisory that help companies, NGO{"'"}s and
             organizations bridge sustainability action, business management and

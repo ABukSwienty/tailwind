@@ -70,7 +70,9 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
 
       <main>{children}</main>
 
-      <footer className="bg-brand"></footer>
+      <footer className="h-12 bg-brand text-center text-white">
+        <p>© tailwind co. 2022</p>
+      </footer>
     </>
   );
 };
