@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { GlobalContext } from "../../provider/global";
@@ -46,15 +47,69 @@ const sliderRenderables = team.map((name, index) => (
   <TeamPortrait name={name} key={name} />
 ));
 
+const AboutItem = ({ text }: { text: string }) => (
+  <motion.li
+    initial={{
+      opacity: 0,
+      x: -100,
+    }}
+    whileInView={{
+      opacity: 1,
+      x: 0,
+    }}
+    viewport={{
+      once: true,
+      margin: "-15%",
+    }}
+    className="flex w-fit items-center md:w-1/2"
+  >
+    <div>
+      <ArrowRightIcon className="mr-6  h-10 w-10" />
+    </div>
+    <p>{text}</p>
+  </motion.li>
+);
+
+const aboutItems = [
+  "We provide solutions that are aligned with a 1.5 degrees pathway",
+  "We focus on fixing the root problems instead of applying a band-aid",
+  "We seek out blind spots - both our own and those of our customers - to secure truly sustainable solutions",
+  "We build bridges and help make sustainability matter across your organisation",
+];
+
+const aboutRenderables = aboutItems.map((text, index) => (
+  <AboutItem text={text} key={index} />
+));
+
 const About = () => {
   const { aboutRef } = useContext(GlobalContext);
   return (
     <Section innerRef={aboutRef} color="light" className="space-y-12 py-32">
+      <Title
+        tag="h2"
+        className="px-8 text-center font-black lg:text-7xl"
+        size="4xl"
+      >
+        About <TextHighlight text="us." />
+      </Title>
+      <Flex
+        as="ul"
+        wrap="wrap"
+        direction="col"
+        align="center"
+        className="w-full gap-16 px-8 pb-32 text-3xl"
+      >
+        {aboutRenderables}
+      </Flex>
       <div className="px-8">
-        <Title tag="h2" className="font-black lg:text-7xl" size="4xl">
+        <Title
+          tag="h2"
+          className="text-center font-black lg:text-7xl"
+          size="4xl"
+        >
           Our <TextHighlight text="team." />
         </Title>
-        <p className="text-gray-700">
+        <p className="text-center text-gray-700">
           We have teamed up with thought-leaders in Scandinavia within
           sustainability, media, brand building and documentary filmmaking.
         </p>

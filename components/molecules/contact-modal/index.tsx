@@ -20,8 +20,6 @@ const ContactModal = ({}: ContactModalProps) => {
 
   useLockScreen(showModal);
 
-  console.log("showModal", showModal);
-
   return <AnimatePresence>{showModal && <Modal />}</AnimatePresence>;
 };
 

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useState, useSyncExternalStore } from "react";
 import useScrollLock from "../../hooks/use-scroll-lock";
 import { GlobalContext } from "../../provider/global";
+import AnimatedLogo from "./animated-logo";
 
 const NavHider = () => {
   const { navHideStore } = useContext(GlobalContext);
@@ -23,7 +24,7 @@ const NavHider = () => {
       if (callback) callback();
       setTimeout(() => {
         navHideStore.set({ show: false });
-      }, 100);
+      }, 1000);
     }
     if (!animateEnd) {
       setAnimateEnd(true);
@@ -44,7 +45,7 @@ const NavHider = () => {
           exit={{
             x: "100%",
           }}
-          className="fixed h-screen w-screen bg-brand-500"
+          className="fixed flex h-screen w-screen items-center justify-center bg-brand"
           style={{
             zIndex: 9999,
           }}
@@ -54,7 +55,9 @@ const NavHider = () => {
             damping: 20,
           }}
           onAnimationComplete={handleEnd}
-        ></motion.div>
+        >
+          <AnimatedLogo className="w-1/2" />
+        </motion.div>
       )}
     </AnimatePresence>
   );
