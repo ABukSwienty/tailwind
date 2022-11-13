@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "../../provider/global";
+import AllBirdsCase from "../atoms/all-birds-case";
 import Case from "../atoms/case";
 import { Flex } from "../atoms/flex";
 import Section from "../atoms/section";
@@ -28,11 +29,8 @@ const Cases = () => {
         justify="center"
         className="gap-16 px-8"
       >
-        <Case
-          case="allBirds"
-          title="Allbirds"
-          description="From PDF report to global SoMe sustainability campaign"
-        />
+        <AllBirdsCase />
+
         <Case
           case="textileExchange"
           title="Textile Exchange"

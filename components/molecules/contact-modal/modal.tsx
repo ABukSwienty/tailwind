@@ -133,7 +133,7 @@ const Modal = () => {
         <motion.div
           variants={modalVariants}
           ref={ref}
-          className="relative mb-10 flex h-fit w-1/3 flex-col space-y-2 rounded-xl bg-accent px-6 py-8 shadow-md sm:mb-0 sm:space-y-8"
+          className="relative mb-10 flex h-fit w-4/5 flex-col space-y-2 rounded-xl bg-accent px-6 py-8 shadow-md sm:mb-0 sm:space-y-8 lg:w-1/3"
         >
           {/* <motion.div
             whileTap={{

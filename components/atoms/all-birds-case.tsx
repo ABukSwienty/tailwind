@@ -5,26 +5,42 @@ import AllBirds from "../../public/cases/all-birds.png";
 import AllBirdsFilm from "../../public/cases/all-birds-film.gif";
 import TextileExchange from "../../public/cases/textile-exchange.png";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import useMediaQuery from "../../hooks/use-media-query";
 
 const cases = {
-  textileExchange: {
-    src: TextileExchange,
-    alt: "Textile Exchange logo",
-    link: "https://textileexchange.org/2022-conference/",
+  allBirds: {
+    src: AllBirds,
+    alt: "All Birds logo",
+    link: "https://www.instagram.com/allbirds/",
+    hover: {
+      src: AllBirdsFilm,
+      alt: "All Birds film",
+    },
   },
 };
 
-export interface CaseProps {
-  case: keyof typeof cases;
-  title: string;
-  description: string;
-}
+export interface CaseProps {}
 
-const Case = ({ title, description, case: caseProp }: CaseProps) => {
+const Case = ({}: CaseProps) => {
+  const ref = useRef(null);
+
+  const [isHovering, setIsHovering] = useState(false);
+
+  const inView = useInView(ref);
+
+  const isMobile = useMediaQuery("(max-width: 640px)");
+
+  useEffect(() => {
+    if (inView && isMobile) {
+      setIsHovering(true);
+    }
+  }, [inView, isMobile]);
+
   return (
     <motion.div
+      ref={ref}
       whileHover={{
         scale: 1.02,
       }}
@@ -35,6 +51,8 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
           delay: 0.2,
         },
       }}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <Flex
         direction="col"
@@ -42,19 +60,30 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
         className="h-80 w-72 cursor-pointer rounded-lg bg-accent pt-4 shadow-md md:h-96 md:w-80"
       >
         <Title size="2xl" className="px-4 font-black">
-          {title}
+          Allbirds
         </Title>
-        <p className="my-2 px-4 text-lg font-medium">{description}</p>
+        <p className="my-2 px-4 text-lg font-medium">
+          From PDF report to global SoMe sustainability campaign
+        </p>
         <Flex className="relative grow" align="center">
-          <Image
-            src={cases[caseProp].src}
-            alt={cases[caseProp].alt}
-            placeholder="blur"
-          />
+          {!isHovering && (
+            <Image
+              src={cases.allBirds.src}
+              alt={cases.allBirds.alt}
+              placeholder="blur"
+            />
+          )}
+
+          {isHovering && (
+            <Image
+              src={cases.allBirds.hover.src}
+              alt={cases.allBirds.hover.alt}
+            />
+          )}
         </Flex>
         <div className="group rounded-b-lg bg-accent-600 transition-colors duration-300 ease-in-out hover:bg-accent-700">
           <a
-            href={cases[caseProp].link}
+            href={cases.allBirds.link}
             target="_blank"
             rel="noreferrer"
             className="flex h-full w-full flex-row items-center p-4 text-lg"
