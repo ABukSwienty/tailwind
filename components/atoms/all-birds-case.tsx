@@ -68,30 +68,25 @@ const Case = ({}: CaseProps) => {
         <p className="my-2 px-4 text-lg font-medium">
           From PDF report to global SoMe sustainability campaign
         </p>
-        <Flex className="relative grow" align="center">
-          {!isHovering && (
-            <Image
-              src={cases.allBirds.src}
-              alt={cases.allBirds.alt}
-              placeholder="blur"
-            />
-          )}
-
-          {isHovering && (
-            <Image
-              src={cases.allBirds.hover.src}
-              alt={cases.allBirds.hover.alt}
-              onLoadingComplete={() => setHasLoaded(true)}
-            />
-          )}
-
-          {isHovering && !hasLoaded && (
-            <Image
-              src={cases.allBirds.src}
-              alt={cases.allBirds.alt}
-              placeholder="blur"
-            />
-          )}
+        <Flex
+          className={`relative grow ${isHovering && hasLoaded ? "hidden" : ""}`}
+          align="center"
+        >
+          <Image
+            src={cases.allBirds.src}
+            alt={cases.allBirds.alt}
+            placeholder="blur"
+          />
+        </Flex>
+        <Flex
+          className={`relative grow ${isHovering && hasLoaded ? "" : "hidden"}`}
+          align="center"
+        >
+          <Image
+            src={cases.allBirds.hover.src}
+            alt={cases.allBirds.hover.alt}
+            onLoadingComplete={() => setHasLoaded(true)}
+          />
         </Flex>
         <div className="group rounded-b-lg bg-accent-600 transition-colors duration-300 ease-in-out hover:bg-accent-700">
           <a
