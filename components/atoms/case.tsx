@@ -35,6 +35,9 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
           delay: 0.2,
         },
       }}
+      viewport={{
+        once: true,
+      }}
     >
       <Flex
         direction="col"

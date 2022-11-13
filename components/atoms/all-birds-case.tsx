@@ -54,6 +54,9 @@ const Case = ({}: CaseProps) => {
           delay: 0.2,
         },
       }}
+      viewport={{
+        once: true,
+      }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
