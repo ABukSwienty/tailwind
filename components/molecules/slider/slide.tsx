@@ -35,6 +35,7 @@ const Slide = ({ children }: { children: React.ReactNode }) => {
       style={{
         width: size + "%",
         minWidth: size + "%",
+        zIndex: isActive ? 1 : 0,
       }}
     >
       {children}

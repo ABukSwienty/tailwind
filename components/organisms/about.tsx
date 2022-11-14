@@ -127,7 +127,11 @@ const About = () => {
       >
         {renderables}
       </Flex>
+
       <div className="h-96 w-full xs:hidden">
+        <p className="mx-auto flex w-fit flex-row items-center text-sm text-gray-500">
+          Drag or swipe to see more <ArrowRightIcon className="ml-3 h-6 w-6" />
+        </p>
         <Slider
           slideSize={75}
           offsetBy={0}

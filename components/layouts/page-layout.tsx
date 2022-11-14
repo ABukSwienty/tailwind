@@ -46,7 +46,10 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Loading />
       <Head>
-        <title>Tailwind co. - turn headwind into tailwind</title>
+        <title>
+          Tailwind Co. is a sustainability advisory that help turn headwind into
+          tailwind for our clients and planet Earth.
+        </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
