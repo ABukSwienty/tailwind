@@ -37,7 +37,7 @@ const Cases = () => {
         <Case
           case="academy"
           title="Tailwind Academy"
-          description="Teaching lawyers how to work strategically with sustainability, ESG, and CSR."
+          description="Teaching lawyers how to work strategically with sustainability."
         />
         <Case
           case="textileExchange"
