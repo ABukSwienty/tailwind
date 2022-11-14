@@ -2,7 +2,7 @@ import Head from "next/head";
 import Nav from "../molecules/nav";
 import WindowProgressBar from "../atoms/window-progress-bar";
 import useNavTo from "../../hooks/use-nav-to";
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext } from "react";
 import { GlobalContext } from "../../provider/global";
 import MobileNav from "../molecules/mobile-nav";
 import Loading from "../molecules/loading";
@@ -46,7 +46,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Loading />
       <Head>
-        <title>Tailwind co.</title>
+        <title>Tailwind co. - turn headwind into tailwind</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

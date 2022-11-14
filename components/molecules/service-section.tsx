@@ -36,21 +36,21 @@ const ServiceSection = ({
       color={color}
       innerRef={innerRef}
     >
-      <div className="pl-4 text-left md:pl-8 md:text-right">
+      <article className="pl-4 text-left md:pl-8 md:text-right">
         <div className="px-4 md:sticky md:top-1/3 md:px-0">
           {title && (
-            <Title tag="h3" size="2xl" className="font-black">
+            <Title tag="h2" size="2xl" className="font-black">
               {title.toLocaleUpperCase()}
             </Title>
           )}
-          {description && description}
-          <Title tag="h2" className="mt-4 font-black lg:text-7xl" size="4xl">
+          {description && <p>description</p>}
+          <Title tag="h3" className="mt-4 font-black lg:text-7xl" size="4xl">
             {withoutLastWord} <TextHighlight text={lastWord} />
           </Title>
         </div>
-      </div>
+      </article>
 
-      <div>
+      <article>
         <Flex
           direction="row"
           wrap="wrap"
@@ -68,7 +68,7 @@ const ServiceSection = ({
             {sliderRenderables}
           </Slider>
         </div>
-      </div>
+      </article>
     </Section>
   );
 };

@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import PageLayout from "../components/layouts/page-layout";
 import ContactModal from "../components/molecules/contact-modal";
-import Modal from "../components/molecules/contact-modal/modal";
 import About from "../components/organisms/about";
 import Cases from "../components/organisms/cases";
 import Intro from "../components/organisms/intro";

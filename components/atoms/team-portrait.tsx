@@ -75,7 +75,7 @@ const TeamPortrait = ({ name: nameProp }: TeamPortraitProps) => {
       </div>
       <div className="text-right">
         <p className="text-accent-800">{title}</p>
-        <Title tag="h4" size="xl" className="font-black text-brand">
+        <Title tag="h3" size="xl" className="font-black text-brand">
           {name}
         </Title>
       </div>
