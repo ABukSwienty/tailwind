@@ -56,7 +56,7 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
         <Title size="2xl" className="px-4 font-black">
           {title}
         </Title>
-        <p className="my-2 px-4 text-lg font-medium">{description}</p>
+        <p className="my-5 px-4 text-lg font-medium">{description}</p>
         <Flex className="relative h-52 overflow-hidden" align="center">
           <Image
             src={cases[caseProp].src}
