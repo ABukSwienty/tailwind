@@ -44,7 +44,7 @@ const Loading = () => {
             }}
             onAnimationComplete={handleEnd}
           >
-            <AnimatedLogo className="w-1/2" />
+            <AnimatedLogo className="w-full md:w-1/2" />
           </motion.div>
         )}
       </AnimatePresence>
