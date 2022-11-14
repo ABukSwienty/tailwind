@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { GlobalContext } from "../../provider/global";
 import Case from "../atoms/case";
+import CTA from "../atoms/cta";
 import { Flex } from "../atoms/flex";
 import Section from "../atoms/section";
 import Title from "../atoms/title";
@@ -44,6 +45,9 @@ const Cases = () => {
           description="2022 conference development and execution."
         />
       </Flex>
+      <div className="mx-auto w-fit">
+        <CTA className="" color="brand" size="xl" />
+      </div>
     </Section>
   );
 };

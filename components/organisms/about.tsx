@@ -35,7 +35,7 @@ const renderables = team.map((name, index) => (
     }}
     viewport={{
       once: true,
-      margin: "-25%",
+      margin: "0px 0px -25% 0px",
     }}
     key={name}
   >
@@ -64,7 +64,7 @@ const AboutItem = ({ text }: { text: string }) => (
     className="flex w-fit items-center md:w-1/2"
   >
     <div>
-      <ArrowRightIcon className="mr-6  h-10 w-10" />
+      <ArrowRightIcon className="mr-6 h-6 w-6 md:h-10 md:w-10" />
     </div>
     <p>{text}</p>
   </motion.li>
@@ -83,8 +83,13 @@ const aboutRenderables = aboutItems.map((text, index) => (
 
 const About = () => {
   const { aboutRef } = useContext(GlobalContext);
+
   return (
-    <Section innerRef={aboutRef} color="light" className="space-y-12 py-32">
+    <Section
+      innerRef={aboutRef}
+      color="light"
+      className="min-h-screen space-y-12 py-32"
+    >
       <Title
         tag="h2"
         className="px-8 text-center font-black lg:text-7xl"
@@ -97,7 +102,7 @@ const About = () => {
         wrap="wrap"
         direction="col"
         align="center"
-        className="w-full gap-16 px-8 pb-32 text-3xl"
+        className="w-full gap-16 px-8 pb-32 text-xl md:text-3xl"
       >
         {aboutRenderables}
       </Flex>
