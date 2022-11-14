@@ -43,7 +43,7 @@ const ServiceSection = ({
               {title.toLocaleUpperCase()}
             </Title>
           )}
-          {description && <p>description</p>}
+          {description && <p>{description}</p>}
           <Title tag="h3" className="mt-4 font-black lg:text-7xl" size="4xl">
             {withoutLastWord} <TextHighlight text={lastWord} />
           </Title>
