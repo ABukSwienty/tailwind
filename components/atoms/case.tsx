@@ -2,6 +2,7 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Flex } from "./flex";
 import Title from "./title";
 import AllBirds from "../../public/cases/all-birds.png";
+import Academy from "../../public/cases/academy.jpg";
 import TextileExchange from "../../public/cases/textile-exchange.png";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -16,6 +17,11 @@ const cases = {
     src: AllBirds,
     alt: "All Birds logo",
     link: "https://www.instagram.com/allbirds/",
+  },
+  academy: {
+    src: Academy,
+    alt: "Tailwind Academy",
+    link: "https://juc.dk/undervisere/morten-lehmann",
   },
 };
 
@@ -45,17 +51,20 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
       <Flex
         direction="col"
         justify="between"
-        className="h-80 w-72 cursor-pointer rounded-lg bg-accent pt-4 shadow-md md:h-96 md:w-80"
+        className="h-fit w-72 cursor-pointer rounded-lg bg-accent pt-4 shadow-md md:h-96 md:w-80"
       >
         <Title size="2xl" className="px-4 font-black">
           {title}
         </Title>
         <p className="my-2 px-4 text-lg font-medium">{description}</p>
-        <Flex className="relative grow" align="center">
+        <Flex className="relative h-52 overflow-hidden" align="center">
           <Image
             src={cases[caseProp].src}
             alt={cases[caseProp].alt}
             placeholder="blur"
+            style={{
+              objectFit: "cover",
+            }}
           />
         </Flex>
         <div className="group rounded-b-lg bg-accent-600 transition-colors duration-300 ease-in-out hover:bg-accent-700">

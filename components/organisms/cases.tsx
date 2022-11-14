@@ -31,18 +31,17 @@ const Cases = () => {
         <Case
           case="allBirds"
           title="Allbirds"
-          description="From PDF report to global SoMe sustainability campaign"
+          description="From PDF report to global SoMe sustainability campaign."
         />
-
+        <Case
+          case="academy"
+          title="Tailwind Academy"
+          description="Teaching lawyers how to work strategically with sustainability, ESG, and CSR."
+        />
         <Case
           case="textileExchange"
           title="Textile Exchange"
-          description="2022 conference development and execution"
-        />
-        <Case
-          case="textileExchange"
-          title="Textile Exchange"
-          description="2022 conference development and execution"
+          description="2022 conference development and execution."
         />
       </Flex>
     </Section>

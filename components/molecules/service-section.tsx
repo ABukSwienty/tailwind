@@ -37,9 +37,9 @@ const ServiceSection = ({
       innerRef={innerRef}
     >
       <div className="pl-4 text-left md:pl-8 md:text-right">
-        <div className="md:sticky md:top-1/3">
+        <div className="px-4 md:sticky md:top-1/3 md:px-0">
           {title && (
-            <Title tag="h3" className="font-black">
+            <Title tag="h3" size="2xl" className="font-black">
               {title.toLocaleUpperCase()}
             </Title>
           )}

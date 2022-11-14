@@ -56,7 +56,7 @@ const NavHider = () => {
           }}
           onAnimationComplete={handleEnd}
         >
-          <AnimatedLogo className="w-1/2" />
+          {show && <AnimatedLogo className="w-1/2" />}
         </motion.div>
       )}
     </AnimatePresence>
