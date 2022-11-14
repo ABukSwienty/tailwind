@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Logo from "../../public/logo/animated-logo.gif";
+import Logo from "../../public/logo/animated-logo-sharper.gif";
 import setClasses from "../../util/set-classes";
 
 const AnimatedLogo = ({ className }: { className: string }) => {
