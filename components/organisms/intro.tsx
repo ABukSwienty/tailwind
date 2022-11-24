@@ -47,7 +47,7 @@ const Intro = () => {
       <div className="font-black text-white md:self-end">
         <div className="mr-auto w-full space-y-4 text-sm  md:w-4/5 md:text-base lg:w-2/3 xl:text-lg">
           <p>
-            Tailwind Co. is an advisory that help companies, NGO{"'"}s and
+            Tailwind Co. is an advisory that helps companies, NGO{"'"}s and
             organizations bridge sustainability action, business management and
             effective brand communication.
           </p>

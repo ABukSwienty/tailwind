@@ -11,13 +11,13 @@ import Slider from "../molecules/slider";
 
 const team: Array<keyof typeof portraits> = [
   "morten",
-  "kim",
-  "keld",
   "sandra",
   "gizem",
   "thomas",
   "pernille",
   "eva",
+  "kim",
+  "keld",
 ];
 
 const renderables = team.map((name, index) => (
