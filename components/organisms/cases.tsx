@@ -19,7 +19,7 @@ const Cases = () => {
           Cases
         </Title>
         <p>
-          Here are som of the clients we are helping turn headwind into
+          Here are some of the clients we are helping turn headwind into
           tailwind.
         </p>
       </Flex>

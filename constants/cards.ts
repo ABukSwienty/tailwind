@@ -41,7 +41,7 @@ const CARDS = {
     {
       title: "Sustainability reporting 2.0",
       content:
-        "From a dusty annual pdf with 'repeated content' to concise communication individually targeted at your stakeholders through different channels and formats Campaigns",
+        "From a dusty annual pdf with 'repeated content' to concise communication individually targeted at your stakeholders through different channels and formats",
     },
     {
       title: "Campaigns",
@@ -72,7 +72,7 @@ const CARDS = {
     {
       title: "Deep Dives",
       content:
-        "Think pieces and assessments of industries, critical issues and issues that will move and shake our world",
+        "Think pieces and assessments of industries and critical issues that will move and shake our world",
     },
   ],
 };

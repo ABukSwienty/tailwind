@@ -16,7 +16,7 @@ const cases = {
   allBirds: {
     src: AllBirds,
     alt: "All Birds logo",
-    link: "https://www.instagram.com/allbirds/",
+    link: "https://www.instagram.com/reel/Cj-zc2sJ58q/",
   },
   academy: {
     src: Academy,
