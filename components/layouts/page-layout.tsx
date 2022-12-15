@@ -8,10 +8,10 @@ import MobileNav from "../molecules/mobile-nav";
 import Loading from "../molecules/loading";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
-  const { casesRef, understandRef, navHideStore, mobileNavStore, aboutRef } =
+  const { casesRef, serviceRef, navHideStore, mobileNavStore, aboutRef } =
     useContext(GlobalContext);
 
-  const navService = useNavTo(understandRef);
+  const navService = useNavTo(serviceRef);
   const navCases = useNavTo(casesRef);
   const navAbout = useNavTo(aboutRef);
 

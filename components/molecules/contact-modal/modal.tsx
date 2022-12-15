@@ -135,15 +135,6 @@ const Modal = () => {
           ref={ref}
           className="relative mb-10 flex h-fit w-4/5 flex-col space-y-2 rounded-xl bg-accent px-6 py-8 shadow-md sm:mb-0 sm:space-y-8 lg:w-1/3"
         >
-          {/* <motion.div
-            whileTap={{
-              scale: 0.9,
-            }}
-            onClick={handleClose}
-            className="absolute top-1 right-1 cursor-pointer rounded-full bg-gray-100 p-2 md:-top-3 md:-right-3"
-          >
-            <XMarkIcon className="h-6 w-6" />
-          </motion.div> */}
           <h2 className="select-none text-2xl font-black text-brand">
             Contact us
           </h2>
@@ -194,19 +185,6 @@ const Modal = () => {
               Send
             </Button>
           </Flex>
-
-          {/* <div className="absolute -bottom-6 h-fit w-fit">
-            <motion.button
-              whileTap={{
-                scale: 0.9,
-              }}
-              onClick={handleSend}
-              className="bg-atlantis flex appearance-none flex-row items-center rounded-full px-4 py-2 text-lg font-medium text-white focus:outline-none"
-            >
-              Send
-              <RocketLaunchIcon className="ml-3 h-6 w-6" />
-            </motion.button>
-          </div> */}
         </motion.div>
       </motion.div>
     </Portal>

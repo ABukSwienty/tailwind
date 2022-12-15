@@ -1,4 +1,4 @@
-import { Variants, useInView, motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useMemo, useRef } from "react";
 import { FramerVariants } from "../../types/framer-variants";
 import { SpringColors } from "../../types/spring-colors";

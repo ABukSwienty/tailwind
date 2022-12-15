@@ -1,11 +1,7 @@
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import useLockScreen from "../../hooks/use-lock-screen";
-import useScrollLock from "../../hooks/use-scroll-lock";
 import AnimatedLogo from "../atoms/animated-logo";
-import { Flex } from "../atoms/flex";
-import Logo from "../atoms/logo";
-import Spinner from "../atoms/spinner";
 
 const Loading = () => {
   const [show, setShow] = useState(true);
