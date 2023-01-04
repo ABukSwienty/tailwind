@@ -1,15 +1,21 @@
 import type { NextPage } from "next";
 import PageLayout from "../components/layouts/page-layout";
 import ContactModal from "../components/molecules/contact-modal";
-import ServicesLinkContainer from "../components/molecules/services-link-container";
 import About from "../components/organisms/about";
 import Cases from "../components/organisms/cases";
+import ServicesLinkContainer from "../components/molecules/services-link-container";
 import Intro from "../components/organisms/intro";
 import Landing from "../components/organisms/landing";
 import ServiceSectionWrapper from "../components/organisms/service-section-wrapper";
 import { SanityTypes } from "../types/sanity-data";
 import evenMap from "../util/even-map";
 import sanityClient from "../util/sanity-client";
+import { useRouter } from "next/router";
+import { useLayoutEffect } from "react";
+import useIsomorphicLayoutEffect from "../hooks/use-isomorphic-layout-effect";
+import Title from "../components/atoms/title";
+import { Flex } from "../components/atoms/flex";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   sanityData: {
@@ -17,24 +23,59 @@ type Props = {
     cases: SanityTypes.CasesPage;
     about: SanityTypes.AboutUsPage;
   };
+  error: null | unknown;
 };
 
-const Home: NextPage<Props> = ({ sanityData }) => {
+const Home: NextPage<Props> = (props) => {
+  const router = useRouter();
+
+  const isError = props.error !== null || props.sanityData === undefined;
+
+  useIsomorphicLayoutEffect(() => {
+    if (isError) {
+      // handle error
+    }
+  }, [isError, router]);
+
   return (
     <PageLayout>
       <ContactModal />
       <Landing />
       <Intro />
       <ServicesLinkContainer />
-      {evenMap(sanityData.howWeWork, (section, index, isEven) => (
-        <ServiceSectionWrapper
-          key={section._id}
-          section={section}
-          color={isEven ? "accent" : "light"}
-        />
-      ))}
-      <About data={sanityData.about} />
-      <Cases data={sanityData.cases} />
+      {!isError && (
+        <>
+          {evenMap(props?.sanityData.howWeWork, (section, index, isEven) => (
+            <ServiceSectionWrapper
+              key={section._id}
+              section={section}
+              color={isEven ? "accent" : "light"}
+            />
+          ))}
+          <About data={props?.sanityData.about} />
+          <Cases data={props?.sanityData.cases} />
+        </>
+      )}
+      {isError && (
+        <div className="flex h-screen w-screen flex-col items-center justify-center space-y-10 bg-brand">
+          <Flex>
+            <ExclamationCircleIcon className="mr-3 h-10 w-10 text-white" />
+            <Title size="3xl" className="text-white">
+              Uh oh, something went wrong
+            </Title>
+          </Flex>
+          <div className="space-y-4 text-center">
+            <p className="text-white">
+              Could not fetch our data from the server. Please try to refresh
+              the page.
+            </p>
+            <p className="text-white">
+              We{"'"}ve been notified of this issue and will fix it as soon as
+              we can.
+            </p>
+          </div>
+        </div>
+      )}
     </PageLayout>
   );
 };
@@ -54,13 +95,17 @@ export async function getStaticProps() {
           cases: howWeWorkProps.cases.cases,
           about: howWeWorkProps.about,
         },
+        error: null,
       },
+      revalidate: 10,
     };
   } catch (error) {
-    console.log("Could not fetch sanity data!", error);
-
     return {
-      props: {},
+      props: {
+        sanityData: undefined,
+        error,
+      },
+      revalidate: 10,
     };
   }
 }
