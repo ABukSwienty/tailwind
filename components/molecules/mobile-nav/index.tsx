@@ -1,17 +1,17 @@
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { Flex } from "../../atoms/flex";
-import Logo from "../../atoms/logo";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import React, {
   useCallback,
   useContext,
   useEffect,
   useSyncExternalStore,
 } from "react";
+import useNavTo from "../../../hooks/use-nav-to";
+import useScrollLock from "../../../hooks/use-scroll-lock";
 import { GlobalContext } from "../../../provider/global";
 import Button from "../../atoms/button";
-import useScrollLock from "../../../hooks/use-scroll-lock";
-import useNavTo from "../../../hooks/use-nav-to";
+import { Flex } from "../../atoms/flex";
+import Logo from "../../atoms/logo";
 
 const wrapperVariants: Variants = {
   initial: {
@@ -122,7 +122,7 @@ const NavToggle = ({ onClick }: { onClick: () => void }) => {
 };
 
 const NavLogo = ({ onClick }: { onClick: () => void }) => {
-  const { mobileNavStore, currentColor } = useContext(GlobalContext);
+  const { currentColor } = useContext(GlobalContext);
   const color = useSyncExternalStore(
     currentColor.subscribe,
     () => currentColor.get().color,
@@ -130,12 +130,6 @@ const NavLogo = ({ onClick }: { onClick: () => void }) => {
   );
 
   const navLogoColor = color ? navToggleColors[color] : navToggleColors.brand;
-
-  /* const navIntro = useNavTo(introRef);
-
-  const handleNavIntro = () => {
-    navHideStore.set({ show: true, callback: navIntro });
-  }; */
 
   return (
     <motion.div

@@ -1,37 +1,19 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useRef } from "react";
+import { SanityTypes } from "../../types/sanity-data";
+import sanityImageUrl from "../../util/sanity-image-url";
 import { Flex } from "./flex";
 import Title from "./title";
-import AllBirds from "../../public/cases/all-birds.png";
-import Academy from "../../public/cases/academy.jpg";
-import TextileExchange from "../../public/cases/textile-exchange.png";
-import Image from "next/image";
-import { motion } from "framer-motion";
-
-const cases = {
-  textileExchange: {
-    src: TextileExchange,
-    alt: "Textile Exchange logo",
-    link: "https://textileexchange.org/2022-conference/",
-  },
-  allBirds: {
-    src: AllBirds,
-    alt: "All Birds logo",
-    link: "https://www.instagram.com/reel/Cj-zc2sJ58q/",
-  },
-  academy: {
-    src: Academy,
-    alt: "Tailwind Academy",
-    link: "https://juc.dk/undervisere/morten-lehmann",
-  },
-};
 
 export interface CaseProps {
-  case: keyof typeof cases;
-  title: string;
-  description: string;
+  case: SanityTypes.ClientCase;
 }
 
-const Case = ({ title, description, case: caseProp }: CaseProps) => {
+const Case = ({ case: caseProp }: CaseProps) => {
+  const savedCase = useRef(caseProp);
+
   return (
     <motion.div
       whileHover={{
@@ -54,22 +36,27 @@ const Case = ({ title, description, case: caseProp }: CaseProps) => {
         className="h-fit w-72 rounded-lg bg-accent pt-4 shadow-md md:h-96 md:w-80"
       >
         <Title size="2xl" className="px-4 font-black">
-          {title}
+          {savedCase.current.title}
         </Title>
-        <p className="my-5 px-4 text-lg font-medium">{description}</p>
+        <p className="my-5 px-4 text-lg font-medium">
+          {savedCase.current.subTitle}
+        </p>
         <Flex className="relative h-52 overflow-hidden" align="center">
           <Image
-            src={cases[caseProp].src}
-            alt={cases[caseProp].alt}
-            placeholder="blur"
+            src={sanityImageUrl(savedCase.current.caseImage.image.asset._ref)
+              .width(400)
+              .url()}
+            alt={savedCase.current.caseImage.description}
             style={{
               objectFit: "cover",
             }}
+            width={400}
+            height={100}
           />
         </Flex>
         <div className="group rounded-b-lg bg-accent-600 transition-colors duration-300 ease-in-out hover:bg-accent-700">
           <a
-            href={cases[caseProp].link}
+            href={savedCase.current.link}
             target="_blank"
             rel="noreferrer"
             className="flex h-full w-full flex-row items-center p-4 text-lg"

@@ -1,26 +1,22 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
-import { useContext } from "react";
+import { useContext, useMemo, useRef } from "react";
 import { GlobalContext } from "../../provider/global";
+import { SanityTypes } from "../../types/sanity-data";
 import { Flex } from "../atoms/flex";
 import Section from "../atoms/section";
-import TeamPortrait, { portraits } from "../atoms/team-portrait";
+import TeamPortrait from "../atoms/team-portrait";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 import Slider from "../molecules/slider";
 
-const team: Array<keyof typeof portraits> = [
-  "morten",
-  "sandra",
-  "gizem",
-  "thomas",
-  "pernille",
-  "eva",
-  "kim",
-  "keld",
-];
-
-const renderables = team.map((name, index) => (
+const TeamPortraitWrapper = ({
+  teamMember,
+  index,
+}: {
+  teamMember: SanityTypes.TeamMember;
+  index: number;
+}) => (
   <motion.div
     initial={{
       opacity: 0,
@@ -37,15 +33,10 @@ const renderables = team.map((name, index) => (
       once: true,
       margin: "0px 0px -25% 0px",
     }}
-    key={name}
   >
-    <TeamPortrait name={name} key={name} />
+    <TeamPortrait teamMember={teamMember} />
   </motion.div>
-));
-
-const sliderRenderables = team.map((name, index) => (
-  <TeamPortrait name={name} key={name} />
-));
+);
 
 const AboutItem = ({ text }: { text: string }) => (
   <motion.li
@@ -70,18 +61,37 @@ const AboutItem = ({ text }: { text: string }) => (
   </motion.li>
 );
 
-const aboutItems = [
-  "We provide solutions that are aligned with a 1.5 degrees pathway",
-  "We focus on fixing the root problems instead of applying a band-aid",
-  "We seek out blind spots - both our own and those of our customers - to secure truly sustainable solutions",
-  "We build bridges and help make sustainability matter across your organisation",
-];
+const About = ({ data }: { data: SanityTypes.AboutUsPage }) => {
+  const savedData = useRef(data);
 
-const aboutRenderables = aboutItems.map((text, index) => (
-  <AboutItem text={text} key={index} />
-));
+  const aboutRenderables = useMemo(
+    () =>
+      savedData.current.tagLines.map((line) => (
+        <AboutItem text={line} key={line} />
+      )),
+    []
+  );
 
-const About = () => {
+  const teamRenderables = useMemo(
+    () =>
+      savedData.current.teamMembers.map((member, index) => (
+        <TeamPortraitWrapper
+          key={member._id}
+          teamMember={member}
+          index={index}
+        />
+      )),
+    []
+  );
+
+  const teamSliderRenderables = useMemo(
+    () =>
+      savedData.current.teamMembers.map((member) => (
+        <TeamPortrait key={member._id} teamMember={member} />
+      )),
+    []
+  );
+
   const { aboutRef } = useContext(GlobalContext);
 
   return (
@@ -125,7 +135,8 @@ const About = () => {
         align="center"
         justify="center"
       >
-        {renderables}
+        {teamRenderables}
+        {/* {renderables} */}
       </Flex>
 
       <div className="h-96 w-full xs:hidden">
@@ -135,7 +146,7 @@ const About = () => {
           extendSlides={0}
           mode="snapToCenter"
         >
-          {sliderRenderables}
+          {teamSliderRenderables}
         </Slider>
       </div>
     </Section>

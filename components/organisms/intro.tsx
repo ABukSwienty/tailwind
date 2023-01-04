@@ -9,9 +9,9 @@ import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 
 const Intro = () => {
-  const { introRef, understandRef, modalStore } = useContext(GlobalContext);
+  const { introRef, serviceRef } = useContext(GlobalContext);
 
-  const navTo = useNavTo(understandRef, {
+  const navTo = useNavTo(serviceRef, {
     behavior: "smooth",
   });
 

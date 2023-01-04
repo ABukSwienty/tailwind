@@ -1,16 +1,10 @@
-import React, { createContext, useRef, useSyncExternalStore } from "react";
+import React, { createContext, useRef } from "react";
 import { sectionColors } from "../components/atoms/section";
-import useScrollObserver from "../hooks/use-scroll-observer";
 import useSubscribableStore from "../hooks/use-subscribable-store";
-import { SpringColors } from "../types/spring-colors";
 
 export interface GlobalContextInterface {
   introRef: React.RefObject<HTMLElement>;
-  understandRef: React.RefObject<HTMLElement>;
-  accelerateRef: React.RefObject<HTMLElement>;
-  communicateRef: React.RefObject<HTMLElement>;
-  educateRef: React.RefObject<HTMLElement>;
-  prepareRef: React.RefObject<HTMLElement>;
+  serviceRef: React.RefObject<HTMLDivElement>;
   casesRef: React.RefObject<HTMLElement>;
   aboutRef: React.RefObject<HTMLElement>;
   navHideStore: ReturnType<
@@ -47,12 +41,8 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     show: false,
   });
 
-  const understandRef = useRef<HTMLElement>(null);
-  const accelerateRef = useRef<HTMLElement>(null);
-  const communicateRef = useRef<HTMLElement>(null);
-  const educateRef = useRef<HTMLElement>(null);
-  const prepareRef = useRef<HTMLElement>(null);
   const introRef = useRef<HTMLElement>(null);
+  const serviceRef = useRef<HTMLDivElement>(null);
   const casesRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
 
@@ -60,11 +50,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
     <GlobalContext.Provider
       value={{
         introRef,
-        understandRef,
-        accelerateRef,
-        communicateRef,
-        educateRef,
-        prepareRef,
+        serviceRef,
         casesRef,
         aboutRef,
         navHideStore,
