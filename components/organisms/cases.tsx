@@ -1,13 +1,21 @@
-import { useContext } from "react";
+import { useContext, useMemo, useRef } from "react";
 import { GlobalContext } from "../../provider/global";
+import { SanityTypes } from "../../types/sanity-data";
 import Case from "../atoms/case";
 import CTA from "../atoms/cta";
 import { Flex } from "../atoms/flex";
 import Section from "../atoms/section";
 import Title from "../atoms/title";
 
-const Cases = () => {
+const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
+  const savedCases = useRef(data);
+
   const { casesRef } = useContext(GlobalContext);
+
+  const renderables = useMemo(
+    () => savedCases.current.map((item) => <Case key={item._id} case={item} />),
+    []
+  );
   return (
     <Section
       innerRef={casesRef}
@@ -29,21 +37,7 @@ const Cases = () => {
         justify="center"
         className="gap-16 px-8"
       >
-        <Case
-          case="allBirds"
-          title="Allbirds"
-          description="From PDF report to global SoMe sustainability campaign."
-        />
-        <Case
-          case="academy"
-          title="Tailwind Academy"
-          description="Teaching lawyers how to work strategically with sustainability."
-        />
-        <Case
-          case="textileExchange"
-          title="Textile Exchange"
-          description="2022 conference development and execution."
-        />
+        {renderables}
       </Flex>
       <div className="mx-auto w-fit">
         <CTA className="" color="brand" size="xl" />

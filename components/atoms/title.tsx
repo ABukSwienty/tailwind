@@ -1,4 +1,4 @@
-import { AllSpringSizes, SpringSizes } from "../../types/spring-sizes";
+import { AllSpringSizes } from "../../types/spring-sizes";
 import setClasses from "../../util/set-classes";
 
 export interface TitleProps extends React.ComponentPropsWithoutRef<"h1"> {

@@ -8,10 +8,10 @@ import MobileNav from "../molecules/mobile-nav";
 import Loading from "../molecules/loading";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
-  const { casesRef, understandRef, navHideStore, mobileNavStore, aboutRef } =
+  const { casesRef, serviceRef, navHideStore, mobileNavStore, aboutRef } =
     useContext(GlobalContext);
 
-  const navService = useNavTo(understandRef);
+  const navService = useNavTo(serviceRef);
   const navCases = useNavTo(casesRef);
   const navAbout = useNavTo(aboutRef);
 
@@ -73,7 +73,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
 
       <main>{children}</main>
 
-      <footer className="h-12 bg-brand text-center text-white">
+      <footer className="flex h-20 items-center justify-center bg-brand text-center text-white">
         <p>© tailwind co. 2022</p>
       </footer>
     </>
