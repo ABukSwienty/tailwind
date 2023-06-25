@@ -1,21 +1,20 @@
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { Flex } from "../components/atoms/flex";
+import Title from "../components/atoms/title";
 import PageLayout from "../components/layouts/page-layout";
 import ContactModal from "../components/molecules/contact-modal";
+import ServicesLinkContainer from "../components/molecules/services-link-container";
 import About from "../components/organisms/about";
 import Cases from "../components/organisms/cases";
-import ServicesLinkContainer from "../components/molecules/services-link-container";
 import Intro from "../components/organisms/intro";
 import Landing from "../components/organisms/landing";
 import ServiceSectionWrapper from "../components/organisms/service-section-wrapper";
+import useIsomorphicLayoutEffect from "../hooks/use-isomorphic-layout-effect";
 import { SanityTypes } from "../types/sanity-data";
 import evenMap from "../util/even-map";
 import sanityClient from "../util/sanity-client";
-import { useRouter } from "next/router";
-import { useLayoutEffect } from "react";
-import useIsomorphicLayoutEffect from "../hooks/use-isomorphic-layout-effect";
-import Title from "../components/atoms/title";
-import { Flex } from "../components/atoms/flex";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   sanityData: {
@@ -61,13 +60,12 @@ const Home: NextPage<Props> = (props) => {
           <Flex>
             <ExclamationCircleIcon className="mr-3 h-10 w-10 text-white" />
             <Title size="3xl" className="text-white">
-              Uh oh, something went wrong
+              Uh oh, something went wrong!
             </Title>
           </Flex>
           <div className="space-y-4 text-center">
             <p className="text-white">
-              Could not fetch our data from the server. Please try to refresh
-              the page.
+              Could not fetch our data from the server. Please refresh the page.
             </p>
             <p className="text-white">
               We{"'"}ve been notified of this issue and will fix it as soon as

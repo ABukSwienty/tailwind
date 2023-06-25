@@ -7,6 +7,9 @@ import CTA from "../atoms/cta";
 import Section from "../atoms/section";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
+import ObservableSection from "../atoms/observable-section";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
+import { IDS } from "../../constants/ids";
 
 const Intro = () => {
   const { introRef, serviceRef } = useContext(GlobalContext);
@@ -15,11 +18,13 @@ const Intro = () => {
     behavior: "smooth",
   });
 
+  const handleEnter = useSetCurrentColor({ color: "accent" });
+
   return (
-    <Section
-      innerRef={introRef}
-      color="accent"
-      className="grid min-h-screen grid-cols-1 gap-16 py-32 px-8 md:grid-cols-2 md:px-0"
+    <ObservableSection
+      onEnter={handleEnter}
+      className="grid min-h-screen grid-cols-1 gap-16 bg-accent py-32 px-8 md:grid-cols-2 md:px-0"
+      id={IDS.introduction}
     >
       <div className="h-fit self-end pl-0 font-black text-white md:pl-16">
         <Title
@@ -72,7 +77,7 @@ const Intro = () => {
           </Button>
         </div>
       </div>
-    </Section>
+    </ObservableSection>
   );
 };
 

@@ -4,6 +4,7 @@ import Card from "../atoms/card";
 import ServiceSection, {
   ServiceSectionProps,
 } from "../molecules/service-section";
+import { removeNull } from "../../util/remove-null";
 
 export interface ServiceSectionWrapperProps
   extends Pick<ServiceSectionProps, "color"> {
@@ -21,7 +22,7 @@ const ServiceSectionWrapper = ({
 
   const renderables = useMemo(
     () =>
-      savedSection.current.cards.map((card, index) => (
+      removeNull(savedSection.current.cards).map((card, index) => (
         <Card
           key={card._id}
           title={card.title}
@@ -35,7 +36,7 @@ const ServiceSectionWrapper = ({
 
   const sliderRenderables = useMemo(
     () =>
-      savedSection.current.cards.map((card, index) => (
+      removeNull(savedSection.current.cards).map((card, index) => (
         <Card
           key={card._id}
           title={card.title}

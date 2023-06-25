@@ -1,10 +1,14 @@
+import { useCallback } from "react";
 import { SpringColors } from "../../types/spring-colors";
 import retrieveLastWord from "../../util/retrieve-last-word";
 import { Flex } from "../atoms/flex";
+import ObservableSection from "../atoms/observable-section";
 import Section from "../atoms/section";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 import Slider from "./slider";
+import { useGlobalActions } from "../../stores/global";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
 
 export interface ServiceSectionProps {
   title?: string;
@@ -17,6 +21,11 @@ export interface ServiceSectionProps {
   innerRef?: React.RefObject<HTMLElement>;
 }
 
+const colors: Record<keyof Pick<SpringColors, "light" | "accent">, string> = {
+  light: "bg-gray-50",
+  accent: "bg-accent",
+};
+
 const ServiceSection = ({
   title,
   description,
@@ -28,13 +37,15 @@ const ServiceSection = ({
   innerRef,
 }: ServiceSectionProps) => {
   const { lastWord, withoutLastWord } = retrieveLastWord(tagline);
+
+  const handleEnter = useSetCurrentColor({ color });
+
   return (
-    <Section
+    <ObservableSection
       className={`grid min-h-screen grid-cols-1 gap-16 py-32 md:grid-cols-2 md:px-0 ${
         color === "accent" ? "text-white" : "text-gray-700"
-      }`}
-      color={color}
-      innerRef={innerRef}
+      } ${colors[color]}`}
+      onEnter={handleEnter}
     >
       <article className="pl-4 text-left md:pl-8 md:text-right">
         <div className="px-4 md:sticky md:top-1/3 md:px-0">
@@ -69,7 +80,7 @@ const ServiceSection = ({
           </Slider>
         </div>
       </article>
-    </Section>
+    </ObservableSection>
   );
 };
 

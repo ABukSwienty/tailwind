@@ -1,6 +1,5 @@
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useContext, useSyncExternalStore } from "react";
-import { GlobalContext } from "../../provider/global";
+import { useCurrentColor } from "../../stores/global";
 
 const bgColor = {
   brand: "bg-white",
@@ -10,13 +9,8 @@ const bgColor = {
 };
 
 const WindowProgressBar = () => {
-  const { currentColor } = useContext(GlobalContext);
+  const color = useCurrentColor();
 
-  const color = useSyncExternalStore(
-    currentColor.subscribe,
-    () => currentColor.get().color,
-    () => currentColor.get().color
-  );
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,

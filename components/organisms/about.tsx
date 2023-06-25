@@ -9,6 +9,9 @@ import TeamPortrait from "../atoms/team-portrait";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 import Slider from "../molecules/slider";
+import { IDS } from "../../constants/ids";
+import ObservableSection from "../atoms/observable-section";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
 
 const TeamPortraitWrapper = ({
   teamMember,
@@ -94,11 +97,13 @@ const About = ({ data }: { data: SanityTypes.AboutUsPage }) => {
 
   const { aboutRef } = useContext(GlobalContext);
 
+  const handleEnter = useSetCurrentColor({ color: "light" });
+
   return (
-    <Section
-      innerRef={aboutRef}
-      color="light"
-      className="min-h-screen space-y-12 py-32"
+    <ObservableSection
+      className="min-h-screen space-y-12 bg-gray-50 py-32"
+      id={IDS.about}
+      onEnter={handleEnter}
     >
       <Title
         tag="h2"
@@ -149,7 +154,7 @@ const About = ({ data }: { data: SanityTypes.AboutUsPage }) => {
           {teamSliderRenderables}
         </Slider>
       </div>
-    </Section>
+    </ObservableSection>
   );
 };
 

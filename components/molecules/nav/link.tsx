@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useContext, useSyncExternalStore } from "react";
 import { GlobalContext } from "../../../provider/global";
 import { OmitFramerProps } from "../../../types/omit-framer-props";
+import { useCurrentColor } from "../../../stores/global";
 
 export interface NavLinkProps
   extends Omit<
@@ -26,13 +27,7 @@ const hoverColors = {
 };
 
 const NavLink = ({ label, ...rest }: NavLinkProps) => {
-  const { currentColor } = useContext(GlobalContext);
-
-  const color = useSyncExternalStore(
-    currentColor.subscribe,
-    () => currentColor.get().color,
-    () => currentColor.get().color
-  );
+  const color = useCurrentColor();
 
   const text = color ? textColors[color] : textColors.brand;
   const hover = color ? hoverColors[color] : hoverColors.brand;
@@ -43,7 +38,7 @@ const NavLink = ({ label, ...rest }: NavLinkProps) => {
         scale: 0.9,
       }}
       {...rest}
-      className={`group relative mx-1 cursor-pointer px-2 text-sm transition-colors duration-300 ease-in-out ${text}`}
+      className={`text-md group relative mx-4 cursor-pointer px-2 transition-colors duration-300 ease-in-out ${text}`}
     >
       {label}
       <div

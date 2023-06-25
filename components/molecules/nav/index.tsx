@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useContext, useSyncExternalStore } from "react";
+import { useContext } from "react";
 import useNavTo from "../../../hooks/use-nav-to";
 import { GlobalContext } from "../../../provider/global";
+import { useCurrentColor } from "../../../stores/global";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
 import NavLink from "./link";
@@ -20,11 +21,7 @@ const textColors = {
 const Component = ({ children }: NavProps) => {
   const { introRef, navHideStore, currentColor } = useContext(GlobalContext);
 
-  const color = useSyncExternalStore(
-    currentColor.subscribe,
-    () => currentColor.get().color,
-    () => currentColor.get().color
-  );
+  const color = useCurrentColor();
 
   const navIntro = useNavTo(introRef);
 

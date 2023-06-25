@@ -59,6 +59,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
           <Nav>
             <Nav.Link onClick={handleMdNavServices} label="our services" />
             <Nav.Link onClick={handleMdNavAbout} label="about" />
+
             <Nav.Link onClick={handleMdNavCases} label="cases" />
           </Nav>
           <MobileNav>

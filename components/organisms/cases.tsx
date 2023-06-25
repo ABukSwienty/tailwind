@@ -1,10 +1,12 @@
 import { useContext, useMemo, useRef } from "react";
+import { IDS } from "../../constants/ids";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
 import { GlobalContext } from "../../provider/global";
 import { SanityTypes } from "../../types/sanity-data";
 import Case from "../atoms/case";
 import CTA from "../atoms/cta";
 import { Flex } from "../atoms/flex";
-import Section from "../atoms/section";
+import ObservableSection from "../atoms/observable-section";
 import Title from "../atoms/title";
 
 const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
@@ -16,11 +18,14 @@ const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
     () => savedCases.current.map((item) => <Case key={item._id} case={item} />),
     []
   );
+
+  const handleEnter = useSetCurrentColor({ color: "brand" });
+
   return (
-    <Section
-      innerRef={casesRef}
-      className="min-h-screen space-y-16 py-32 text-white"
-      color="brand"
+    <ObservableSection
+      className="min-h-screen space-y-16 bg-brand py-32 text-white"
+      id={IDS.cases}
+      onEnter={handleEnter}
     >
       <Flex direction="col" align="start" className="mx-auto w-fit px-8">
         <Title size="4xl" className="font-black md:text-8xl">
@@ -42,7 +47,7 @@ const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
       <div className="mx-auto w-fit">
         <CTA className="" color="brand" size="xl" />
       </div>
-    </Section>
+    </ObservableSection>
   );
 };
 
