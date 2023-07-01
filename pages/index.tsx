@@ -15,6 +15,8 @@ import useIsomorphicLayoutEffect from "../hooks/use-isomorphic-layout-effect";
 import { SanityTypes } from "../types/sanity-data";
 import evenMap from "../util/even-map";
 import sanityClient from "../util/sanity-client";
+import { useMemo } from "react";
+import { useGlobalActions } from "../stores/global";
 
 type Props = {
   sanityData: {
@@ -26,9 +28,23 @@ type Props = {
 };
 
 const Home: NextPage<Props> = (props) => {
+  const { setServiceLinks } = useGlobalActions();
   const router = useRouter();
 
   const isError = props.error !== null || props.sanityData === undefined;
+
+  useMemo(() => {
+    if (!props) return;
+    if (props.error) return;
+
+    setServiceLinks(
+      props.sanityData.howWeWork.map((d) => ({
+        id: d._id,
+        title: d.title,
+        subTitle: d.subTitle,
+      }))
+    );
+  }, [props, setServiceLinks]);
 
   useIsomorphicLayoutEffect(() => {
     if (isError) {

@@ -58,6 +58,7 @@ const ServiceSectionWrapper = ({
       sliderRenderables={sliderRenderables}
       color={color}
       offsetBy={0}
+      id={section._id}
     />
   );
 };

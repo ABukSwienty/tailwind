@@ -1,46 +1,40 @@
 import Head from "next/head";
-import Nav from "../molecules/nav";
+import { IDS } from "../../constants/ids";
+import useVanillaNavigate from "../../hooks/use-vanilla-navigate";
 import WindowProgressBar from "../atoms/window-progress-bar";
-import useNavTo from "../../hooks/use-nav-to";
-import { useCallback, useContext } from "react";
-import { GlobalContext } from "../../provider/global";
-import MobileNav from "../molecules/mobile-nav";
+import ServiceNavMenu from "../molecules/ServiceNavMenu";
 import Loading from "../molecules/loading";
+import Nav from "../molecules/nav";
+import { useSplashActions } from "../../stores/splash";
+import MobileNav from "../molecules/mobile-nav";
+import { useMobileNavActions } from "../../stores/mobile-nav";
+import ServiceMobileNavMenu from "../molecules/ServiceMobileNavMenu";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
-  const { casesRef, serviceRef, navHideStore, mobileNavStore, aboutRef } =
-    useContext(GlobalContext);
+  const navAbout = useVanillaNavigate({ id: IDS.about });
+  const navCases = useVanillaNavigate({ id: IDS.cases });
+  const navIntro = useVanillaNavigate({ id: IDS.introduction });
 
-  const navService = useNavTo(serviceRef);
-  const navCases = useNavTo(casesRef);
-  const navAbout = useNavTo(aboutRef);
+  const splashActions = useSplashActions();
+  const mobileNavActions = useMobileNavActions();
 
-  const handleMdNavServices = useCallback(() => {
-    navHideStore.set({ show: true, callback: navService });
-  }, [navHideStore, navService]);
+  const handleNavCases = () => {
+    mobileNavActions.setClose();
+    splashActions.show();
+    splashActions.subscribe("didAnimateIn", navAbout, true);
+  };
 
-  const handleMdNavCases = useCallback(() => {
-    navHideStore.set({ show: true, callback: navCases });
-  }, [navHideStore, navCases]);
+  const handleNavAbout = () => {
+    mobileNavActions.setClose();
+    splashActions.show();
+    splashActions.subscribe("didAnimateIn", navAbout, true);
+  };
 
-  const handleMdNavAbout = useCallback(() => {
-    navHideStore.set({ show: true, callback: navAbout });
-  }, [navHideStore, navAbout]);
-
-  const handleSMNavServices = useCallback(() => {
-    navService();
-    mobileNavStore.set({ show: false });
-  }, [mobileNavStore, navService]);
-
-  const handleSMNavCases = useCallback(() => {
-    navCases();
-    mobileNavStore.set({ show: false });
-  }, [mobileNavStore, navCases]);
-
-  const handleSMNavAbout = useCallback(() => {
-    navAbout();
-    mobileNavStore.set({ show: false });
-  }, [mobileNavStore, navAbout]);
+  const handleLogoClick = () => {
+    mobileNavActions.setClose();
+    splashActions.show();
+    splashActions.subscribe("didAnimateIn", () => navIntro, true);
+  };
 
   return (
     <>
@@ -56,18 +50,15 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
       <header className="fixed z-50 w-screen backdrop-blur-sm">
         <WindowProgressBar />
         <div className="py-4 px-4">
-          <Nav>
-            <Nav.Link onClick={handleMdNavServices} label="our services" />
-            <Nav.Link onClick={handleMdNavAbout} label="about" />
-
-            <Nav.Link onClick={handleMdNavCases} label="cases" />
+          <Nav onClickLogo={handleLogoClick}>
+            <ServiceNavMenu />
+            <Nav.Link onClick={handleNavCases}>cases</Nav.Link>
+            <Nav.Link onClick={handleNavAbout}>about</Nav.Link>
           </Nav>
-          <MobileNav>
-            <MobileNav.Item onClick={handleSMNavServices}>
-              our services
-            </MobileNav.Item>
-            <MobileNav.Item onClick={handleSMNavCases}>cases</MobileNav.Item>
-            <MobileNav.Item onClick={handleSMNavAbout}>about</MobileNav.Item>
+          <MobileNav onClickLogo={handleLogoClick}>
+            <ServiceMobileNavMenu />
+            <MobileNav.Item onClick={handleNavCases}>cases</MobileNav.Item>
+            <MobileNav.Item onClick={handleNavAbout}>about</MobileNav.Item>
           </MobileNav>
         </div>
       </header>

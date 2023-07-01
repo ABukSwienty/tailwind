@@ -19,6 +19,7 @@ export interface ServiceSectionProps {
   offsetBy?: number;
   color?: keyof Pick<SpringColors, "light" | "accent">;
   innerRef?: React.RefObject<HTMLElement>;
+  id?: string;
 }
 
 const colors: Record<keyof Pick<SpringColors, "light" | "accent">, string> = {
@@ -35,6 +36,7 @@ const ServiceSection = ({
   offsetBy = 0,
   color = "accent",
   innerRef,
+  id,
 }: ServiceSectionProps) => {
   const { lastWord, withoutLastWord } = retrieveLastWord(tagline);
 
@@ -46,6 +48,7 @@ const ServiceSection = ({
         color === "accent" ? "text-white" : "text-gray-700"
       } ${colors[color]}`}
       onEnter={handleEnter}
+      id={id}
     >
       <article className="pl-4 text-left md:pl-8 md:text-right">
         <div className="px-4 md:sticky md:top-1/3 md:px-0">

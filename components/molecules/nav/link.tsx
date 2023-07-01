@@ -3,34 +3,22 @@ import { useContext, useSyncExternalStore } from "react";
 import { GlobalContext } from "../../../provider/global";
 import { OmitFramerProps } from "../../../types/omit-framer-props";
 import { useCurrentColor } from "../../../stores/global";
+import NavUnderline from "./underline";
+import { navHoverColors, navTextColors } from "./constants";
 
 export interface NavLinkProps
   extends Omit<
     React.ComponentPropsWithoutRef<"li">,
     "className" | OmitFramerProps
   > {
-  label: string;
+  children?: React.ReactNode;
 }
 
-const textColors = {
-  brand: "text-white",
-  light: "text-gray-700",
-  accent: "text-brand",
-  dark: "text-white",
-};
-
-const hoverColors = {
-  brand: "bg-white",
-  light: "bg-gray-700",
-  accent: "bg-brand",
-  dark: "bg-white",
-};
-
-const NavLink = ({ label, ...rest }: NavLinkProps) => {
+const NavLink = ({ children, ...rest }: NavLinkProps) => {
   const color = useCurrentColor();
 
-  const text = color ? textColors[color] : textColors.brand;
-  const hover = color ? hoverColors[color] : hoverColors.brand;
+  const text = color ? navTextColors[color] : navTextColors.brand;
+  const hover = color ? navHoverColors[color] : navHoverColors.brand;
 
   return (
     <motion.li
@@ -38,12 +26,12 @@ const NavLink = ({ label, ...rest }: NavLinkProps) => {
         scale: 0.9,
       }}
       {...rest}
+      role="link"
+      aria-roledescription="link"
       className={`text-md group relative mx-4 cursor-pointer px-2 transition-colors duration-300 ease-in-out ${text}`}
     >
-      {label}
-      <div
-        className={`absolute left-0 h-0.5 w-full origin-left scale-x-0 transition-all duration-300 ease-in-out group-hover:scale-x-100 ${hover}`}
-      />
+      {children}
+      <NavUnderline className={hover} />
     </motion.li>
   );
 };

@@ -7,4 +7,5 @@ export const IDS = {
   about: "about",
   team: "team",
   cases: "cases",
+  services: "services",
 };

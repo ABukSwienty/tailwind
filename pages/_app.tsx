@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Toaster />
       <GlobalProvider>
-        <NavHider />
+        {/* <NavHider /> */}
         <Component {...pageProps} />
       </GlobalProvider>
     </>
