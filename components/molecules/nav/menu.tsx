@@ -2,8 +2,9 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Transition, Variants, motion } from "framer-motion";
 import { useCurrentColor } from "../../../stores/global";
-import { navMenuColors, navTextColors } from "./constants";
+import { navHoverColors, navMenuColors, navTextColors } from "./constants";
 import AnimatedChevron from "../../atoms/animated-chevron";
+import NavUnderline from "./underline";
 
 export interface NavMenuProps {
   label: string;
@@ -34,20 +35,16 @@ const NavMenu = ({ label, children, isOpen, handleOpen }: NavMenuProps) => {
 
   const text = color ? navTextColors[color] : navTextColors.brand;
   const menu = color ? navMenuColors[color] : navMenuColors.brand;
+  const hover = color ? navHoverColors[color] : navHoverColors.brand;
 
   return (
     <DropdownMenu.Root open={isOpen} onOpenChange={handleOpen}>
       <DropdownMenu.Trigger asChild>
         <li
           className={`text-md group relative mx-4 cursor-pointer px-2 transition-colors duration-300 ease-in-out ${text}`}
-          onMouseEnter={() => {
-            handleOpen(true);
-          }}
         >
-          <div className="flex flex-row items-center gap-4">
-            {label}
-            <AnimatedChevron isOpen={isOpen} height={18} />
-          </div>
+          <div className="flex flex-row items-center gap-4">{label}</div>
+          <NavUnderline className={`${hover} ${isOpen ? "scale-x-100" : ""}`} />
         </li>
       </DropdownMenu.Trigger>
 

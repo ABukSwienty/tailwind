@@ -2,7 +2,6 @@ import Image from "next/image";
 import Logo from "../../public/logo/animated-logo-sharper.gif";
 import setClasses from "../../util/set-classes";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { useIsSplashShowing, useSplashActions } from "../../stores/splash";
 
@@ -17,7 +16,7 @@ const AnimatedLogo = ({ className }: { className: string }) => {
 
   useEffect(() => {
     const t = setTimeout(() => {
-      if (show) actions.hide();
+      actions.hide();
     }, ANIMATION_DURATION);
 
     return () => {
@@ -26,6 +25,8 @@ const AnimatedLogo = ({ className }: { className: string }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
+
+  console.log(show);
 
   return (
     <>

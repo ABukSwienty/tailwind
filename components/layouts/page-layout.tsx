@@ -9,6 +9,7 @@ import { useSplashActions } from "../../stores/splash";
 import MobileNav from "../molecules/mobile-nav";
 import { useMobileNavActions } from "../../stores/mobile-nav";
 import ServiceMobileNavMenu from "../molecules/ServiceMobileNavMenu";
+import { useGlobalActions } from "../../stores/global";
 
 const PageLayout = ({ children }: { children: React.ReactNode }) => {
   const navAbout = useVanillaNavigate({ id: IDS.about });
@@ -21,7 +22,7 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
   const handleNavCases = () => {
     mobileNavActions.setClose();
     splashActions.show();
-    splashActions.subscribe("didAnimateIn", navAbout, true);
+    splashActions.subscribe("didAnimateIn", navCases, true);
   };
 
   const handleNavAbout = () => {

@@ -240,7 +240,7 @@ const Component = ({
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed top-0 left-0 flex h-screen w-screen flex-col justify-between bg-accent-400 p-4 pb-32"
+            className="fixed top-0 left-0 flex h-screen w-screen flex-col justify-between overflow-scroll bg-accent-400 p-4 pb-32"
           >
             <Flex
               as="ul"
