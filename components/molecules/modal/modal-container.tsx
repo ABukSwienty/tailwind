@@ -1,22 +1,12 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
-import FocusTrap from "focus-trap-react";
-import { AnimatePresence, Variants, motion } from "framer-motion";
-import Leaflet from "./leaflet";
-import useWindowSize from "../../../hooks/use-window-size";
-import { useModalStore } from "./package";
+import { useCallback, useEffect, useRef } from "react";
+
+import { Variants, motion } from "framer-motion";
 import Portal from "../../../HOC/portal";
 import framerVariantProps from "../../../constants/framer-variant-props";
-import { FramerVariants } from "../../../types/framer-variants";
-import { useOnClickOutside } from "../../../hooks/use-click-outside";
+import useWindowSize from "../../../hooks/use-window-size";
 import setClasses from "../../../util/set-classes";
-import useScrollLock from "../../../hooks/use-scroll-lock";
-import useLockScreen from "../../../hooks/use-lock-screen";
+import Leaflet from "./leaflet";
+import { useModalStore } from "./package";
 
 const WRAPPER_VARIANTS: Variants = {
   initial: {
