@@ -1,14 +1,34 @@
-import { useCallback } from "react";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
 import { SpringColors } from "../../types/spring-colors";
 import retrieveLastWord from "../../util/retrieve-last-word";
+import Button from "../atoms/button";
 import { Flex } from "../atoms/flex";
 import ObservableSection from "../atoms/observable-section";
-import Section from "../atoms/section";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 import Slider from "./slider";
-import { useGlobalActions } from "../../stores/global";
-import useSetCurrentColor from "../../hooks/use-set-current-color";
+import { modals } from "./modal/modals";
+
+const CaseButton = ({ color }: { color: "light" | "accent" }) => {
+  return (
+    <Button
+      color={color === "accent" ? "light" : "accent"}
+      className="h-16 min-w-[256px] max-w-[256px]"
+      onClick={() => {
+        modals.case({});
+      }}
+    >
+      <div className="ml-auto w-fit">
+        <div className="flex flex-row justify-start md:justify-end">
+          <ArrowRightIcon height={24} />
+          <p className="ml-4 text-lg font-bold">Allbirds</p>
+        </div>
+        <p className="text-left">Creating a global SoMe campaign</p>
+      </div>
+    </Button>
+  );
+};
 
 export interface ServiceSectionProps {
   title?: string;
@@ -61,6 +81,12 @@ const ServiceSection = ({
           <Title tag="h3" className="mt-4 font-black lg:text-7xl" size="4xl">
             {withoutLastWord} <TextHighlight text={lastWord} />
           </Title>
+
+          <div className="mt-8 flex cursor-pointer flex-row flex-wrap items-center justify-start gap-4 transition-all md:justify-end">
+            <CaseButton color={color} />
+            <CaseButton color={color} />
+            <CaseButton color={color} />
+          </div>
         </div>
       </article>
 

@@ -1,0 +1,122 @@
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
+import FocusTrap from "focus-trap-react";
+import { AnimatePresence, Variants, motion } from "framer-motion";
+import Leaflet from "./leaflet";
+import useWindowSize from "../../../hooks/use-window-size";
+import { useModalStore } from "./package";
+import Portal from "../../../HOC/portal";
+import framerVariantProps from "../../../constants/framer-variant-props";
+import { FramerVariants } from "../../../types/framer-variants";
+import { useOnClickOutside } from "../../../hooks/use-click-outside";
+import setClasses from "../../../util/set-classes";
+import useScrollLock from "../../../hooks/use-scroll-lock";
+import useLockScreen from "../../../hooks/use-lock-screen";
+
+const WRAPPER_VARIANTS: Variants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
+const MODAL_VARIANTS: Variants = {
+  initial: {
+    opacity: 0,
+    y: 200,
+    transition: {
+      ease: "anticipate",
+    },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    y: 200,
+    opacity: 0,
+    transition: {
+      ease: "anticipate",
+    },
+  },
+};
+
+export default function Modal({
+  children,
+  hasPadding = true,
+}: {
+  children: React.ReactNode;
+  hasPadding?: boolean;
+}) {
+  const { dismiss } = useModalStore();
+  const outSideRef = useRef(null);
+
+  const modalClassnames = setClasses([
+    "relative z-[9999] mb-10 flex h-fit w-4/5 flex-col space-y-2 rounded-xl bg-accent shadow-md sm:mb-0 sm:space-y-8 lg:w-1/3",
+    hasPadding && "px-6 py-8",
+  ]);
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        dismiss();
+      }
+    },
+    [dismiss]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onKeyDown]);
+
+  const { isMobile, isDesktop } = useWindowSize();
+
+  return (
+    <>
+      <Portal>
+        {isMobile && (
+          <Leaflet hasPadding={hasPadding} dismiss={dismiss}>
+            {children}
+          </Leaflet>
+        )}
+        {isDesktop && (
+          <>
+            <div className="fixed z-[9998] flex h-screen w-screen items-center justify-center">
+              <motion.div
+                ref={outSideRef}
+                variants={MODAL_VARIANTS}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className={modalClassnames}
+              >
+                {children}
+              </motion.div>
+
+              <motion.div
+                variants={WRAPPER_VARIANTS}
+                {...framerVariantProps}
+                className="absolute z-[9998] h-screen w-screen bg-gray-900 bg-opacity-40 backdrop-blur-sm"
+                onClick={dismiss}
+              />
+            </div>
+          </>
+        )}
+      </Portal>
+    </>
+  );
+}

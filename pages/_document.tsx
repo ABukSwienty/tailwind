@@ -53,7 +53,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body className="h-full bg-brand font-vietnam antialiased">
-          <div id="overlay" className="relative z-[9999]" />
+          <div id="overlay" className="relative" />
           <Main />
           <NextScript />
         </body>

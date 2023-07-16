@@ -1,10 +1,11 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { Flex } from "../components/atoms/flex";
 import Title from "../components/atoms/title";
 import PageLayout from "../components/layouts/page-layout";
-import ContactModal from "../components/molecules/contact-modal";
+import { modals } from "../components/molecules/modal/modals";
 import ServicesLinkContainer from "../components/molecules/services-link-container";
 import About from "../components/organisms/about";
 import Cases from "../components/organisms/cases";
@@ -12,11 +13,10 @@ import Intro from "../components/organisms/intro";
 import Landing from "../components/organisms/landing";
 import ServiceSectionWrapper from "../components/organisms/service-section-wrapper";
 import useIsomorphicLayoutEffect from "../hooks/use-isomorphic-layout-effect";
+import { useGlobalActions } from "../stores/global";
 import { SanityTypes } from "../types/sanity-data";
 import evenMap from "../util/even-map";
 import sanityClient from "../util/sanity-client";
-import { useMemo } from "react";
-import { useGlobalActions } from "../stores/global";
 
 type Props = {
   sanityData: {
@@ -54,7 +54,6 @@ const Home: NextPage<Props> = (props) => {
 
   return (
     <PageLayout>
-      <ContactModal />
       <Landing />
       <Intro />
       <ServicesLinkContainer />
@@ -90,6 +89,7 @@ const Home: NextPage<Props> = (props) => {
           </div>
         </div>
       )}
+      <button onClick={() => modals.test({})}>press</button>
     </PageLayout>
   );
 };

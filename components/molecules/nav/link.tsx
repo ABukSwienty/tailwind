@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
-import { useContext, useSyncExternalStore } from "react";
-import { GlobalContext } from "../../../provider/global";
-import { OmitFramerProps } from "../../../types/omit-framer-props";
 import { useCurrentColor } from "../../../stores/global";
-import NavUnderline from "./underline";
+import { OmitFramerProps } from "../../../types/omit-framer-props";
 import { navHoverColors, navTextColors } from "./constants";
+import NavUnderline from "./underline";
 
 export interface NavLinkProps
   extends Omit<

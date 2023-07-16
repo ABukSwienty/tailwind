@@ -3,15 +3,28 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 import { SanityTypes } from "../../types/sanity-data";
+import { SpringColors } from "../../types/spring-colors";
 import sanityImageUrl from "../../util/sanity-image-url";
 import { Flex } from "./flex";
 import Title from "./title";
 
 export interface CaseProps {
   case: SanityTypes.ClientCase;
+  color?: keyof Pick<SpringColors, "brand" | "accent">;
 }
 
-const Case = ({ case: caseProp }: CaseProps) => {
+const colors: Record<keyof Pick<SpringColors, "brand" | "accent">, string> = {
+  brand: "bg-brand",
+  accent: "bg-accent",
+};
+
+const linkColors: Record<keyof Pick<SpringColors, "brand" | "accent">, string> =
+  {
+    brand: "bg-brand-600 hover:bg-brand-600",
+    accent: "bg-accent-600 hover:bg-accent-600",
+  };
+
+const Case = ({ case: caseProp, color = "accent" }: CaseProps) => {
   const savedCase = useRef(caseProp);
 
   return (
@@ -33,7 +46,7 @@ const Case = ({ case: caseProp }: CaseProps) => {
       <Flex
         direction="col"
         justify="between"
-        className="h-fit w-72 rounded-lg bg-accent pt-4 shadow-md md:h-96 md:w-80"
+        className={`h-fit w-72 rounded-lg ${colors[color]} pt-4 text-left shadow-md md:h-96 md:w-80`}
       >
         <Title size="2xl" className="px-4 font-black">
           {savedCase.current.title}
@@ -54,7 +67,9 @@ const Case = ({ case: caseProp }: CaseProps) => {
             height={100}
           />
         </Flex>
-        <div className="group rounded-b-lg bg-accent-600 transition-colors duration-300 ease-in-out hover:bg-accent-700">
+        <div
+          className={`group rounded-b-lg transition-colors duration-300 ease-in-out ${linkColors[color]}`}
+        >
           <a
             href={savedCase.current.link}
             target="_blank"

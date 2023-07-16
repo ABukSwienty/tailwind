@@ -1,7 +1,6 @@
-import { useContext, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { IDS } from "../../constants/ids";
 import useSetCurrentColor from "../../hooks/use-set-current-color";
-import { GlobalContext } from "../../provider/global";
 import { SanityTypes } from "../../types/sanity-data";
 import Case from "../atoms/case";
 import CTA from "../atoms/cta";
@@ -11,8 +10,6 @@ import Title from "../atoms/title";
 
 const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
   const savedCases = useRef(data);
-
-  const { casesRef } = useContext(GlobalContext);
 
   const renderables = useMemo(
     () => savedCases.current.map((item) => <Case key={item._id} case={item} />),

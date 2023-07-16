@@ -1,7 +1,6 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
-import { useContext } from "react";
-import { GlobalContext } from "../../provider/global";
 import setClasses from "../../util/set-classes";
+import { modals } from "../molecules/modal/modals";
 import Button, { ButtonProps } from "./button";
 
 export interface CTAProps extends Omit<ButtonProps, "children" | "onClick"> {}
@@ -12,15 +11,15 @@ const CTA = ({
   trailingIcon = PaperAirplaneIcon,
   ...rest
 }: CTAProps) => {
-  const { modalStore } = useContext(GlobalContext);
-  const handleModal = () => modalStore.set({ show: true });
   const classNames = setClasses([className]);
   return (
     <Button
       color={color}
       className={classNames}
       trailingIcon={trailingIcon}
-      onClick={handleModal}
+      onClick={() => {
+        modals.contact({});
+      }}
       {...rest}
     >
       Get in touch

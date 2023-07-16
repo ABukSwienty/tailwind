@@ -26,8 +26,6 @@ const AnimatedLogo = ({ className }: { className: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
-  console.log(show);
-
   return (
     <>
       {show && (
