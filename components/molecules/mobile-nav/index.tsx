@@ -1,8 +1,7 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import React from "react";
+import React, { use, useEffect, useRef } from "react";
 import useBoolean from "../../../hooks/use-boolean";
-import useLockScreen from "../../../hooks/use-lock-screen";
 import { useCurrentColor } from "../../../stores/global";
 import {
   useIsMobileNavOpen,
@@ -12,6 +11,8 @@ import setClasses from "../../../util/set-classes";
 import Button from "../../atoms/button";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
+import { useScrollLock } from "../../../hooks/use-lock-scroll";
+import useIsFirstRender from "../../../hooks/use-first-render";
 
 const wrapperVariants: Variants = {
   initial: {
@@ -228,8 +229,7 @@ const Component = ({
 }) => {
   const isOpen = useIsMobileNavOpen();
   const actions = useMobileNavActions();
-
-  useLockScreen(isOpen);
+  const [lock, unlock] = useScrollLock();
 
   return (
     <nav className="block h-full w-full md:hidden">
@@ -257,7 +257,10 @@ const Component = ({
                 color="accent"
                 className="font-medium"
                 trailingIcon={XMarkIcon}
-                onClick={actions.setClose}
+                onClick={() => {
+                  unlock();
+                  actions.setClose();
+                }}
               >
                 Close
               </Button>
@@ -267,7 +270,12 @@ const Component = ({
       </AnimatePresence>
       <Flex justify="between" align="center" direction="row">
         <NavLogo onClick={onClickLogo} />
-        <NavToggle onClick={actions.toggle} />
+        <NavToggle
+          onClick={() => {
+            lock();
+            actions.setOpen();
+          }}
+        />
       </Flex>
     </nav>
   );

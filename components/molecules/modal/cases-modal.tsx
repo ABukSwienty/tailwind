@@ -1,32 +1,37 @@
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
-import useWindowSize from "../../../hooks/use-window-size";
+import { isMobile } from "react-device-detect";
+import { SanityTypes } from "../../../types/sanity-data";
 import { Flex } from "../../atoms/flex";
 import Title from "../../atoms/title";
 import Modal from "./modal-container";
 
-const CasesModal = () => {
-  const { isMobile } = useWindowSize();
+export interface CasesModalProps {
+  clientCase: SanityTypes.SectionCase;
+}
+
+const CasesModal = ({ clientCase }: CasesModalProps) => {
   return (
     <Modal hasPadding={false}>
       <Flex direction="col" justify="between" className={`pt-4`}>
         <Title size="2xl" className="px-4 font-black">
-          Textile Exchange.
+          {clientCase.title}
         </Title>
-        <p className="my-5 max-h-96 grow px-4 text-lg font-medium">
-          Tailwind worked closely with Textile Exchange in developing their
-          Annual membership conference in Colorado. This included curation and
-          framing of panels, the overall framework of the program and guidance
-          on the content and flow of the individual sessions. Tailwind also
-          moderated two sessions one on how to communicate about sustainabity
-          and the second on diversity and inclusion in the fashion space.
-        </p>
+        <div className="my-5 max-h-96 grow overflow-scroll px-4 text-lg font-medium">
+          <p>{clientCase.subTitle}</p>
+          {clientCase.description && (
+            <p className="mt-4 text-base font-normal">
+              {clientCase.description}
+            </p>
+          )}
+        </div>
+
         <div
           className={`group flex items-center justify-center rounded-b-lg bg-accent-600 transition-colors duration-300 ease-in-out hover:bg-accent-600 ${
             isMobile ? "pb-12" : ""
           }`}
         >
           <a
-            href={"#"}
+            href={clientCase.link}
             target="_blank"
             rel="noreferrer"
             className="flex flex-row items-center p-4 text-lg"

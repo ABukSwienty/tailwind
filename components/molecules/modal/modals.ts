@@ -3,7 +3,7 @@ import ContactModal from "./contact-modal";
 import { createModals } from "./package";
 
 export const modals = createModals({
-  test: CasesModal,
   contact: ContactModal,
+  //@ts-ignore
   case: CasesModal,
 });

@@ -106,12 +106,17 @@ const ContactModal = () => {
           <span className="text-sm text-black">{errors.message}</span>
         )}
       </div>
-      <Flex className="ml-auto w-fit gap-6" direction="row">
-        <Button onClick={handleClose} color="accent" trailingIcon={XMarkIcon}>
-          Cancel
-        </Button>
-        <Button onClick={handleSend} trailingIcon={PaperAirplaneIcon}>
+      <Flex className="ml-auto w-full gap-6" direction="col">
+        <Button size="lg" onClick={handleSend} trailingIcon={PaperAirplaneIcon}>
           Send
+        </Button>
+        <Button
+          size="lg"
+          onClick={handleClose}
+          color="accent"
+          trailingIcon={XMarkIcon}
+        >
+          Cancel
         </Button>
       </Flex>
     </Modal>

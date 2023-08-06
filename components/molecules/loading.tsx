@@ -1,19 +1,18 @@
 import {
-  AnimatePresence,
   Transition,
   Variants,
   motion,
   useAnimationControls,
 } from "framer-motion";
-import useLockScreen from "../../hooks/use-lock-screen";
-import { useGlobalActions, useSplashScreen } from "../../stores/global";
-import AnimatedLogo from "../atoms/animated-logo";
-import { useCallback, useEffect, useRef, useState } from "react";
+
+import { useCallback, useEffect } from "react";
+import { useScrollLock } from "../../hooks/use-lock-scroll";
 import {
   useIsSplashInitialLoad,
   useIsSplashShowing,
   useSplashActions,
 } from "../../stores/splash";
+import AnimatedLogo from "../atoms/animated-logo";
 
 const variants: Variants = {
   initial: {
@@ -38,12 +37,12 @@ const Loading = () => {
   const initial = useIsSplashInitialLoad();
   const control = useAnimationControls();
   const actions = useSplashActions();
-  const [showLogo, setShowLogo] = useState(false);
 
-  useLockScreen(show);
+  const [lock, unlock] = useScrollLock();
 
   const handleAnimateIn = useCallback(async () => {
     control.set("initial");
+    lock();
     await control.start("animate");
     actions.publish("didAnimateIn");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,6 +50,7 @@ const Loading = () => {
 
   const handleAnimateOut = useCallback(async () => {
     await control.start("exit");
+    unlock();
     actions.publish("didAnimateOut");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -58,14 +58,12 @@ const Loading = () => {
   useEffect(() => {
     if (show) {
       handleAnimateIn();
+      /* lock(); */
     } else {
       handleAnimateOut();
+      /* unlock(); */
     }
-  }, [show, handleAnimateIn, handleAnimateOut]);
-
-  const handleLogoAnimationEnd = () => {
-    actions.hide();
-  };
+  }, [show, handleAnimateIn, handleAnimateOut, lock, unlock]);
 
   return (
     <>

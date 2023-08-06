@@ -1,17 +1,16 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
-import { useContext, useMemo, useRef } from "react";
-import { GlobalContext } from "../../provider/global";
+import { useMemo } from "react";
+import { IDS } from "../../constants/ids";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
+import { useSanityStoreAbout } from "../../stores/sanity-store";
 import { SanityTypes } from "../../types/sanity-data";
 import { Flex } from "../atoms/flex";
-import Section from "../atoms/section";
+import ObservableSection from "../atoms/observable-section";
 import TeamPortrait from "../atoms/team-portrait";
 import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 import Slider from "../molecules/slider";
-import { IDS } from "../../constants/ids";
-import ObservableSection from "../atoms/observable-section";
-import useSetCurrentColor from "../../hooks/use-set-current-color";
 
 const TeamPortraitWrapper = ({
   teamMember,
@@ -64,38 +63,41 @@ const AboutItem = ({ text }: { text: string }) => (
   </motion.li>
 );
 
-const About = ({ data }: { data: SanityTypes.AboutUsPage }) => {
-  const savedData = useRef(data);
+const About = () => {
+  const data = useSanityStoreAbout();
 
   const aboutRenderables = useMemo(
     () =>
-      savedData.current.tagLines.map((line) => (
-        <AboutItem text={line} key={line} />
-      )),
-    []
+      data
+        ? data.tagLines.map((line) => <AboutItem text={line} key={line} />)
+        : null,
+    [data]
   );
 
   const teamRenderables = useMemo(
     () =>
-      savedData.current.teamMembers.map((member, index) => (
-        <TeamPortraitWrapper
-          key={member._id}
-          teamMember={member}
-          index={index}
-        />
-      )),
-    []
+      data
+        ? data.teamMembers.map((member, index) => (
+            <TeamPortraitWrapper
+              key={member._id}
+              teamMember={member}
+              index={index}
+            />
+          ))
+        : null,
+
+    [data]
   );
 
   const teamSliderRenderables = useMemo(
     () =>
-      savedData.current.teamMembers.map((member) => (
-        <TeamPortrait key={member._id} teamMember={member} />
-      )),
-    []
+      data
+        ? data.teamMembers.map((member) => (
+            <TeamPortrait key={member._id} teamMember={member} />
+          ))
+        : null,
+    [data]
   );
-
-  const { aboutRef } = useContext(GlobalContext);
 
   const handleEnter = useSetCurrentColor({ color: "light" });
 
@@ -141,18 +143,19 @@ const About = ({ data }: { data: SanityTypes.AboutUsPage }) => {
         justify="center"
       >
         {teamRenderables}
-        {/* {renderables} */}
       </Flex>
 
       <div className="h-96 w-full xs:hidden">
-        <Slider
-          slideSize={75}
-          offsetBy={0}
-          extendSlides={0}
-          mode="snapToCenter"
-        >
-          {teamSliderRenderables}
-        </Slider>
+        {teamSliderRenderables && (
+          <Slider
+            slideSize={75}
+            offsetBy={0}
+            extendSlides={0}
+            mode="snapToCenter"
+          >
+            {teamSliderRenderables}
+          </Slider>
+        )}
       </div>
     </ObservableSection>
   );

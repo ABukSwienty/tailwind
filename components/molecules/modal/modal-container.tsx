@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
 
 import { Variants, motion } from "framer-motion";
+import { isDesktop, isMobile } from "react-device-detect";
 import Portal from "../../../HOC/portal";
 import framerVariantProps from "../../../constants/framer-variant-props";
-import useWindowSize from "../../../hooks/use-window-size";
+import { useScrollLockEffect } from "../../../hooks/use-lock-scroll";
 import setClasses from "../../../util/set-classes";
 import Leaflet from "./leaflet";
 import { useModalStore } from "./package";
@@ -68,12 +69,23 @@ export default function Modal({
     [dismiss]
   );
 
-  useEffect(() => {
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [onKeyDown]);
+  useScrollLockEffect();
 
-  const { isMobile, isDesktop } = useWindowSize();
+  useEffect(() => {
+    /* const body = document.querySelector("body");
+
+    if (body) {
+      body.style.overflow = "hidden";
+    } */
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      /* if (body) {
+        body.style.overflow = "auto";
+      } */
+    };
+  }, [onKeyDown]);
 
   return (
     <>

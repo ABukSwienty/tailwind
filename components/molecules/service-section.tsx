@@ -9,36 +9,41 @@ import TextHighlight from "../atoms/text-highlight";
 import Title from "../atoms/title";
 import Slider from "./slider";
 import { modals } from "./modal/modals";
+import { SanityTypes } from "../../types/sanity-data";
+import textEllipsis from "../../util/text-ellipsis";
 
-const CaseButton = ({ color }: { color: "light" | "accent" }) => {
+const CaseButton = ({
+  color,
+  clientCase,
+}: {
+  color: "light" | "accent";
+  clientCase: SanityTypes.SectionCase;
+}) => {
   return (
     <Button
       color={color === "accent" ? "light" : "accent"}
-      className="h-16 min-w-[256px] max-w-[256px]"
+      className="h-16 w-full min-w-[256px] overflow-hidden md:max-w-[256px]"
       onClick={() => {
-        modals.case({});
+        modals.case({
+          clientCase,
+        });
       }}
     >
-      <div className="ml-auto w-fit">
-        <div className="flex flex-row justify-start md:justify-end">
-          <ArrowRightIcon height={24} />
-          <p className="ml-4 text-lg font-bold">Allbirds</p>
-        </div>
-        <p className="text-left">Creating a global SoMe campaign</p>
+      <div className="flex flex-row justify-start md:justify-end">
+        <ArrowRightIcon height={24} />
+        <p className="ml-4 text-lg font-bold">{clientCase.title}</p>
       </div>
+      <p className="text-left">{textEllipsis(clientCase.subTitle, 30)}</p>
     </Button>
   );
 };
 
 export interface ServiceSectionProps {
-  title?: string;
-  description?: string;
-  tagline: string;
+  section: SanityTypes.Section;
   renderables: JSX.Element[];
   sliderRenderables: JSX.Element[];
   offsetBy?: number;
   color?: keyof Pick<SpringColors, "light" | "accent">;
-  innerRef?: React.RefObject<HTMLElement>;
   id?: string;
 }
 
@@ -48,16 +53,14 @@ const colors: Record<keyof Pick<SpringColors, "light" | "accent">, string> = {
 };
 
 const ServiceSection = ({
-  title,
-  description,
-  tagline,
+  section,
   renderables,
   sliderRenderables,
   offsetBy = 0,
   color = "accent",
-  innerRef,
   id,
 }: ServiceSectionProps) => {
+  const { title, subTitle: description, tagLine: tagline, cases } = section;
   const { lastWord, withoutLastWord } = retrieveLastWord(tagline);
 
   const handleEnter = useSetCurrentColor({ color });
@@ -82,10 +85,12 @@ const ServiceSection = ({
             {withoutLastWord} <TextHighlight text={lastWord} />
           </Title>
 
-          <div className="mt-8 flex cursor-pointer flex-row flex-wrap items-center justify-start gap-4 transition-all md:justify-end">
-            <CaseButton color={color} />
-            <CaseButton color={color} />
-            <CaseButton color={color} />
+          <div className="mt-8 hidden cursor-pointer flex-row flex-wrap items-center justify-start gap-4 transition-all md:flex md:justify-end">
+            {section.cases &&
+              section.cases.length > 0 &&
+              section.cases.map((c) => (
+                <CaseButton key={c._id} color={color} clientCase={c} />
+              ))}
           </div>
         </div>
       </article>
@@ -109,6 +114,13 @@ const ServiceSection = ({
           </Slider>
         </div>
       </article>
+      <div className="flex cursor-pointer flex-row flex-wrap items-center justify-start gap-4 px-12 transition-all md:hidden md:justify-end">
+        {section.cases &&
+          section.cases.length > 0 &&
+          section.cases.map((c) => (
+            <CaseButton key={c._id} color={color} clientCase={c} />
+          ))}
+      </div>
     </ObservableSection>
   );
 };

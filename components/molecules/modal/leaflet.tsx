@@ -17,7 +17,7 @@ export default function Leaflet({
   const transitionProps = { type: "spring", stiffness: 500, damping: 30 };
 
   const classNames = setClasses([
-    "group fixed inset-x-0 bottom-0 z-[9999] w-screen cursor-grab space-y-8 bg-accent active:cursor-grabbing sm:hidden",
+    "group fixed inset-x-0 bottom-0 z-[9999] w-screen cursor-grab space-y-8 bg-accent active:cursor-grabbing sm:hidden rounded-t-3xl",
     hasPadding && "px-6 pb-12",
   ]);
 
@@ -58,7 +58,7 @@ export default function Leaflet({
         dragConstraints={{ top: 0, bottom: 0 }}
       >
         <div
-          className={`rounded-t-4xl -mb-1 flex h-7 w-full items-center justify-center`}
+          className={`-mb-1 flex h-7 w-full items-center justify-center rounded-t-3xl`}
         >
           <div className="-mr-1 h-1 w-6 rounded-full bg-gray-50 transition-all group-active:rotate-12" />
           <div className="h-1 w-6 rounded-full bg-gray-50 transition-all group-active:-rotate-12" />

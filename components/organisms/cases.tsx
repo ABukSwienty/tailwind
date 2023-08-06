@@ -1,19 +1,20 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { IDS } from "../../constants/ids";
 import useSetCurrentColor from "../../hooks/use-set-current-color";
-import { SanityTypes } from "../../types/sanity-data";
+import { useSanityStoreCases } from "../../stores/sanity-store";
 import Case from "../atoms/case";
 import CTA from "../atoms/cta";
 import { Flex } from "../atoms/flex";
 import ObservableSection from "../atoms/observable-section";
 import Title from "../atoms/title";
 
-const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
-  const savedCases = useRef(data);
+const Cases = () => {
+  const data = useSanityStoreCases();
 
   const renderables = useMemo(
-    () => savedCases.current.map((item) => <Case key={item._id} case={item} />),
-    []
+    () =>
+      data ? data.map((item) => <Case key={item._id} case={item} />) : null,
+    [data]
   );
 
   const handleEnter = useSetCurrentColor({ color: "brand" });
