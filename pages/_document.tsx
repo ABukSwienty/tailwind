@@ -52,8 +52,8 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="h-full bg-accent font-vietnam antialiased">
-          <div id="overlay" className="relative z-[9999]" />
+        <body className="h-full bg-brand font-vietnam antialiased">
+          <div id="overlay" className="relative" />
           <Main />
           <NextScript />
         </body>

@@ -1,17 +1,18 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useSyncExternalStore,
-} from "react";
-import useNavTo from "../../../hooks/use-nav-to";
-import useScrollLock from "../../../hooks/use-scroll-lock";
-import { GlobalContext } from "../../../provider/global";
+import { AnimatePresence, Variants, motion } from "framer-motion";
+import React, { use, useEffect, useRef } from "react";
+import useBoolean from "../../../hooks/use-boolean";
+import { useCurrentColor } from "../../../stores/global";
+import {
+  useIsMobileNavOpen,
+  useMobileNavActions,
+} from "../../../stores/mobile-nav";
+import setClasses from "../../../util/set-classes";
 import Button from "../../atoms/button";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
+import { useScrollLock } from "../../../hooks/use-lock-scroll";
+import useIsFirstRender from "../../../hooks/use-first-render";
 
 const wrapperVariants: Variants = {
   initial: {
@@ -25,6 +26,7 @@ const wrapperVariants: Variants = {
       type: "spring",
       damping: 20,
       stiffness: 100,
+      staggerDirection: 1,
     },
   },
   exit: {
@@ -33,6 +35,9 @@ const wrapperVariants: Variants = {
       type: "spring",
       damping: 20,
       stiffness: 150,
+      staggerChildren: 0.1,
+      staggerDirection: -1,
+      when: "afterChildren",
     },
   },
 };
@@ -45,6 +50,15 @@ const childVariants: Variants = {
   animate: {
     y: 0,
     opacity: 1,
+    transition: {
+      type: "spring",
+      damping: 20,
+      stiffness: 100,
+    },
+  },
+  exit: {
+    y: -30,
+    opacity: 0,
     transition: {
       type: "spring",
       damping: 20,
@@ -65,21 +79,98 @@ const iconVariants: Variants = {
   },
 };
 
+export interface MobileNavItemProps
+  extends Omit<
+    React.HTMLAttributes<HTMLLIElement>,
+    "onClick" | "onDragStart" | "onDragEnd" | "onAnimationStart" | "onDrag"
+  > {
+  onClick: () => void;
+  children: React.ReactNode;
+  size?: "sm" | "lg";
+}
+
+const itemSize = {
+  sm: "text-lg sm:text-3xl",
+  lg: "text-3xl sm:text-5xl",
+};
+
 const Item = ({
   children,
   onClick,
-}: {
-  children: React.ReactNode;
-  onClick: () => void;
-}) => (
-  <motion.li
-    className="cursor-pointer select-none text-gray-700 transition-colors duration-300 ease-in-out hover:text-brand"
-    onClick={onClick}
-    variants={childVariants}
-  >
-    {children}
-  </motion.li>
-);
+  size = "lg",
+  className,
+  ...rest
+}: MobileNavItemProps) => {
+  const classNames = setClasses([
+    "my-6 cursor-pointer select-none font-black text-gray-700 transition-colors duration-300 ease-in-out hover:text-brand",
+    className,
+    itemSize[size],
+  ]);
+
+  return (
+    <motion.li
+      className={classNames}
+      onClick={onClick}
+      variants={childVariants}
+      {...rest}
+    >
+      {children}
+    </motion.li>
+  );
+};
+
+export interface MobileNavMenuProps {
+  children?: React.ReactNode;
+  label: string;
+}
+
+const navMenuVariants: Variants = {
+  initial: {
+    height: 0,
+  },
+  animate: {
+    height: "auto",
+    transition: {
+      type: "spring",
+      damping: 20,
+      stiffness: 100,
+      staggerChildren: 0.1,
+    },
+  },
+  exit: {
+    height: 0,
+    transition: {
+      type: "spring",
+      damping: 20,
+      stiffness: 100,
+    },
+  },
+};
+
+const MobileNavMenu = ({ children, label }: MobileNavMenuProps) => {
+  const { value, setTrue, toggle } = useBoolean(false);
+  const isOpen = useIsMobileNavOpen();
+  return (
+    <>
+      <Item onClick={toggle} className="flex flex-row items-center">
+        {label}
+      </Item>
+      <AnimatePresence>
+        {value && isOpen && (
+          <motion.ul
+            className="w-full overflow-hidden"
+            variants={navMenuVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {children}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const navToggleColors = {
   brand: "text-white",
@@ -89,18 +180,9 @@ const navToggleColors = {
 };
 
 const NavToggle = ({ onClick }: { onClick: () => void }) => {
-  const { mobileNavStore, currentColor } = useContext(GlobalContext);
-  const show = useSyncExternalStore(
-    mobileNavStore.subscribe,
-    () => mobileNavStore.get().show,
-    () => mobileNavStore.get().show
-  );
+  const isOpen = useIsMobileNavOpen();
 
-  const color = useSyncExternalStore(
-    currentColor.subscribe,
-    () => currentColor.get().color,
-    () => currentColor.get().color
-  );
+  const color = useCurrentColor();
 
   const navToggleColor = color ? navToggleColors[color] : navToggleColors.brand;
 
@@ -109,25 +191,20 @@ const NavToggle = ({ onClick }: { onClick: () => void }) => {
   return (
     <motion.button
       variants={iconVariants}
-      animate={show ? "animate" : "initial"}
+      animate={isOpen ? "animate" : "initial"}
       onClick={onClick}
       whileTap={{
         scale: 0.9,
       }}
     >
-      {!show && <Bars3Icon className={classNames} />}
-      {show && <XMarkIcon className={classNames} />}
+      {!isOpen && <Bars3Icon className={classNames} />}
+      {isOpen && <XMarkIcon className={classNames} />}
     </motion.button>
   );
 };
 
 const NavLogo = ({ onClick }: { onClick: () => void }) => {
-  const { currentColor } = useContext(GlobalContext);
-  const color = useSyncExternalStore(
-    currentColor.subscribe,
-    () => currentColor.get().color,
-    () => currentColor.get().color
-  );
+  const color = useCurrentColor();
 
   const navLogoColor = color ? navToggleColors[color] : navToggleColors.brand;
 
@@ -143,46 +220,31 @@ const NavLogo = ({ onClick }: { onClick: () => void }) => {
   );
 };
 
-const Component = ({ children }: { children: React.ReactNode }) => {
-  const { mobileNavStore, introRef, navHideStore } = useContext(GlobalContext);
-
-  const { lock, unlock } = useScrollLock();
-
-  const navIntro = useNavTo(introRef);
-
-  const toggleNav = useCallback(() => {
-    mobileNavStore.set((prev) => ({ ...prev, show: !prev.show }));
-  }, [mobileNavStore]);
-
-  const show = useSyncExternalStore(
-    mobileNavStore.subscribe,
-    () => mobileNavStore.get().show,
-    () => mobileNavStore.get().show
-  );
-
-  useEffect(() => {
-    if (show) lock();
-    else unlock();
-  }, [show, lock, unlock]);
-
-  const handleLogoClick = useCallback(() => {
-    navHideStore.set({ show: true, callback: navIntro });
-  }, [navHideStore, navIntro]);
+const Component = ({
+  children,
+  onClickLogo,
+}: {
+  children: React.ReactNode;
+  onClickLogo: () => void;
+}) => {
+  const isOpen = useIsMobileNavOpen();
+  const actions = useMobileNavActions();
+  const [lock, unlock] = useScrollLock();
 
   return (
     <nav className="block h-full w-full md:hidden">
       <AnimatePresence>
-        {show && (
+        {isOpen && (
           <motion.div
             variants={wrapperVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed top-0 left-0 flex h-screen w-screen flex-col justify-between bg-accent-400 p-4 pb-32"
+            className="fixed top-0 left-0 flex h-screen w-screen flex-col justify-between overflow-scroll bg-accent-400 p-4 pb-32"
           >
             <Flex
               as="ul"
-              className="h-full w-full grow space-y-12 text-center text-3xl font-black sm:text-5xl"
+              className="h-full w-full grow text-center"
               direction="col"
               align="center"
               justify="center"
@@ -195,7 +257,10 @@ const Component = ({ children }: { children: React.ReactNode }) => {
                 color="accent"
                 className="font-medium"
                 trailingIcon={XMarkIcon}
-                onClick={toggleNav}
+                onClick={() => {
+                  unlock();
+                  actions.setClose();
+                }}
               >
                 Close
               </Button>
@@ -204,8 +269,13 @@ const Component = ({ children }: { children: React.ReactNode }) => {
         )}
       </AnimatePresence>
       <Flex justify="between" align="center" direction="row">
-        <NavLogo onClick={handleLogoClick} />
-        <NavToggle onClick={toggleNav} />
+        <NavLogo onClick={onClickLogo} />
+        <NavToggle
+          onClick={() => {
+            lock();
+            actions.setOpen();
+          }}
+        />
       </Flex>
     </nav>
   );
@@ -213,6 +283,7 @@ const Component = ({ children }: { children: React.ReactNode }) => {
 
 const MobileNav = Object.assign(Component, {
   Item,
+  Menu: MobileNavMenu,
 });
 
 export default MobileNav;

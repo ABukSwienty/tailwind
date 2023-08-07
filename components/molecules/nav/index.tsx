@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { useContext, useSyncExternalStore } from "react";
-import useNavTo from "../../../hooks/use-nav-to";
-import { GlobalContext } from "../../../provider/global";
+import { useCurrentColor } from "../../../stores/global";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
 import NavLink from "./link";
+import NavMenu from "./menu";
 
 export interface NavProps {
   children: React.ReactNode;
+  onClickLogo: () => void;
 }
 
 const textColors = {
@@ -17,27 +17,15 @@ const textColors = {
   dark: "text-white",
 };
 
-const Component = ({ children }: NavProps) => {
-  const { introRef, navHideStore, currentColor } = useContext(GlobalContext);
-
-  const color = useSyncExternalStore(
-    currentColor.subscribe,
-    () => currentColor.get().color,
-    () => currentColor.get().color
-  );
-
-  const navIntro = useNavTo(introRef);
-
-  const handleNavIntro = () => {
-    navHideStore.set({ show: true, callback: navIntro });
-  };
+const Component = ({ children, onClickLogo }: NavProps) => {
+  const color = useCurrentColor();
 
   const logoColor = color ? textColors[color] : textColors.brand;
 
   return (
     <nav className="hidden h-full w-full items-center justify-between md:flex">
       <motion.div
-        onClick={handleNavIntro}
+        onClick={onClickLogo}
         whileTap={{
           scale: 0.9,
         }}
@@ -55,6 +43,7 @@ const Component = ({ children }: NavProps) => {
 
 const Nav = Object.assign(Component, {
   Link: NavLink,
+  Menu: NavMenu,
 });
 
 export default Nav;

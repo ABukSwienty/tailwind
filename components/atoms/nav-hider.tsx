@@ -1,14 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useState, useSyncExternalStore } from "react";
-import useScrollLock from "../../hooks/use-scroll-lock";
 import { GlobalContext } from "../../provider/global";
 import AnimatedLogo from "./animated-logo";
+import { useScrollLock } from "../../hooks/use-lock-scroll";
 
 const NavHider = () => {
   const { navHideStore } = useContext(GlobalContext);
   const [animateEnd, setAnimateEnd] = useState(true);
 
-  const { lock, unlock } = useScrollLock();
+  const [lock, unlock] = useScrollLock();
 
   const show = useSyncExternalStore(
     navHideStore.subscribe,

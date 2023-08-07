@@ -14,12 +14,18 @@ export namespace SanityTypes {
     content: string;
   }
 
+  export type SectionCase = Pick<
+    ClientCase,
+    "_id" | "title" | "subTitle" | "link" | "description"
+  >;
+
   export interface Section {
     _id: string;
     title: string;
     subTitle: string;
     tagLine: string;
     cards: Card[];
+    cases: null | SectionCase[];
   }
 
   export interface TeamMember {
@@ -35,6 +41,7 @@ export namespace SanityTypes {
     subTitle: string;
     caseImage: Image;
     link: string;
+    description?: string;
   }
 
   export type HowWeWorkPage = Section[];

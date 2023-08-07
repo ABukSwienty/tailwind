@@ -1,50 +1,86 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import useLockScreen from "../../hooks/use-lock-screen";
+import {
+  Transition,
+  Variants,
+  motion,
+  useAnimationControls,
+} from "framer-motion";
+
+import { useCallback, useEffect } from "react";
+import { useScrollLock } from "../../hooks/use-lock-scroll";
+import {
+  useIsSplashInitialLoad,
+  useIsSplashShowing,
+  useSplashActions,
+} from "../../stores/splash";
 import AnimatedLogo from "../atoms/animated-logo";
 
+const variants: Variants = {
+  initial: {
+    x: "-100%",
+  },
+  animate: {
+    x: 0,
+  },
+  exit: {
+    x: "100%",
+  },
+};
+
+const transition: Transition = {
+  type: "spring",
+  stiffness: 100,
+  damping: 20,
+};
+
 const Loading = () => {
-  const [show, setShow] = useState(true);
+  const show = useIsSplashShowing();
+  const initial = useIsSplashInitialLoad();
+  const control = useAnimationControls();
+  const actions = useSplashActions();
 
-  useLockScreen(show);
+  const [lock, unlock] = useScrollLock();
 
-  const handleEnd = () => {
-    setTimeout(() => {
-      setShow(false);
-    }, 1500);
-  };
+  const handleAnimateIn = useCallback(async () => {
+    control.set("initial");
+    lock();
+    await control.start("animate");
+    actions.publish("didAnimateIn");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleAnimateOut = useCallback(async () => {
+    await control.start("exit");
+    unlock();
+    actions.publish("didAnimateOut");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (show) {
+      handleAnimateIn();
+      /* lock(); */
+    } else {
+      handleAnimateOut();
+      /* unlock(); */
+    }
+  }, [show, handleAnimateIn, handleAnimateOut, lock, unlock]);
 
   return (
     <>
-      <AnimatePresence>
-        {show && (
-          <motion.div
-            key={1}
-            initial={{
-              x: "-100%",
-            }}
-            animate={{
-              x: 0,
-            }}
-            exit={{
-              x: "100%",
-            }}
-            className="fixed flex h-screen w-screen items-center justify-center bg-brand-500"
-            style={{
-              zIndex: 9999,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-            }}
-            onAnimationComplete={handleEnd}
-          >
-            <AnimatedLogo className="w-full md:w-1/2" />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {show && <div className="fixed z-[9998] h-screen w-screen bg-white" />}
+      <motion.div
+        key={1}
+        animate={control}
+        variants={variants}
+        initial="initial"
+        className="fixed z-[9999] flex h-screen w-screen items-center justify-center bg-brand-500"
+        transition={transition}
+      >
+        <AnimatedLogo className="w-full md:w-1/2" />
+      </motion.div>
+
+      {show && initial && (
+        <div className="fixed z-[9998] h-screen w-screen bg-white" />
+      )}
     </>
   );
 };

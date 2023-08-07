@@ -4,24 +4,21 @@ import Card from "../atoms/card";
 import ServiceSection, {
   ServiceSectionProps,
 } from "../molecules/service-section";
+import { removeNull } from "../../util/remove-null";
+import { useSanityStoreHowWeWork } from "../../stores/sanity-store";
+import evenMap from "../../util/even-map";
 
 export interface ServiceSectionWrapperProps
   extends Pick<ServiceSectionProps, "color"> {
   section: SanityTypes.Section;
 }
 
-const ServiceSectionWrapper = ({
-  color,
-  section,
-}: ServiceSectionWrapperProps) => {
-  const savedSection = useRef(section);
-  const ref = useRef<HTMLElement>(null);
-
+const Comp = ({ color, section }: ServiceSectionWrapperProps) => {
   const cardColor = color === "light" ? "accent" : "brand";
 
   const renderables = useMemo(
     () =>
-      savedSection.current.cards.map((card, index) => (
+      removeNull(section.cards).map((card, index) => (
         <Card
           key={card._id}
           title={card.title}
@@ -30,12 +27,12 @@ const ServiceSectionWrapper = ({
           color={cardColor}
         />
       )),
-    [cardColor]
+    [cardColor, section.cards]
   );
 
   const sliderRenderables = useMemo(
     () =>
-      savedSection.current.cards.map((card, index) => (
+      removeNull(section.cards).map((card, index) => (
         <Card
           key={card._id}
           title={card.title}
@@ -44,20 +41,36 @@ const ServiceSectionWrapper = ({
           color={cardColor}
         />
       )),
-    [cardColor]
+    [cardColor, section.cards]
   );
 
   return (
     <ServiceSection
-      innerRef={ref}
-      title={savedSection.current.title}
-      description={savedSection.current.subTitle}
-      tagline={savedSection.current.tagLine}
+      section={section}
       renderables={renderables}
       sliderRenderables={sliderRenderables}
       color={color}
       offsetBy={0}
+      id={section._id}
     />
+  );
+};
+
+const ServiceSectionWrapper = () => {
+  const data = useSanityStoreHowWeWork();
+
+  if (!data) return null;
+
+  return (
+    <>
+      {evenMap(data, (section, _, isEven) => (
+        <Comp
+          key={section._id}
+          section={section}
+          color={isEven ? "accent" : "light"}
+        />
+      ))}
+    </>
   );
 };
 

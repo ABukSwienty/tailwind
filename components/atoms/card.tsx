@@ -52,7 +52,7 @@ const Card = ({
   color = "brand",
 }: CardProps) => {
   const classNames = setClasses([
-    "flex space-y-12 xs:space-y-12 py-4 h-96 md:h-fit xs:py-12 xs:w-64 flex-col justify-evenly whitespace-normal rounded-lg p-4 shadow-md lg:w-80",
+    "flex space-y-12 xs:space-y-12 py-4 overflow-scroll h-96 md:h-fit xs:py-12 xs:w-64 flex-col justify-evenly whitespace-normal rounded-lg p-4 shadow-md lg:w-80",
     cardColors[color],
     className,
   ]);

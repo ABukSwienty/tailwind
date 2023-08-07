@@ -1,26 +1,29 @@
-import { useContext, useMemo, useRef } from "react";
-import { GlobalContext } from "../../provider/global";
-import { SanityTypes } from "../../types/sanity-data";
+import { useMemo } from "react";
+import { IDS } from "../../constants/ids";
+import useSetCurrentColor from "../../hooks/use-set-current-color";
+import { useSanityStoreCases } from "../../stores/sanity-store";
 import Case from "../atoms/case";
 import CTA from "../atoms/cta";
 import { Flex } from "../atoms/flex";
-import Section from "../atoms/section";
+import ObservableSection from "../atoms/observable-section";
 import Title from "../atoms/title";
 
-const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
-  const savedCases = useRef(data);
-
-  const { casesRef } = useContext(GlobalContext);
+const Cases = () => {
+  const data = useSanityStoreCases();
 
   const renderables = useMemo(
-    () => savedCases.current.map((item) => <Case key={item._id} case={item} />),
-    []
+    () =>
+      data ? data.map((item) => <Case key={item._id} case={item} />) : null,
+    [data]
   );
+
+  const handleEnter = useSetCurrentColor({ color: "brand" });
+
   return (
-    <Section
-      innerRef={casesRef}
-      className="min-h-screen space-y-16 py-32 text-white"
-      color="brand"
+    <ObservableSection
+      className="min-h-screen space-y-16 bg-brand py-32 text-white"
+      id={IDS.cases}
+      onEnter={handleEnter}
     >
       <Flex direction="col" align="start" className="mx-auto w-fit px-8">
         <Title size="4xl" className="font-black md:text-8xl">
@@ -42,7 +45,7 @@ const Cases = ({ data }: { data: SanityTypes.CasesPage }) => {
       <div className="mx-auto w-fit">
         <CTA className="" color="brand" size="xl" />
       </div>
-    </Section>
+    </ObservableSection>
   );
 };
 

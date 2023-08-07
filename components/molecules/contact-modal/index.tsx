@@ -1,7 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import React, { useContext, useSyncExternalStore } from "react";
-import useLockScreen from "../../../hooks/use-lock-screen";
 
 import { GlobalContext } from "../../../provider/global";
 
@@ -17,8 +16,6 @@ const ContactModal = ({}: ContactModalProps) => {
     () => modalStore.get().show,
     () => modalStore.get().show
   );
-
-  useLockScreen(showModal);
 
   return <AnimatePresence>{showModal && <Modal />}</AnimatePresence>;
 };
