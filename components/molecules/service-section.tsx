@@ -22,18 +22,27 @@ const CaseButton = ({
   return (
     <Button
       color={color === "accent" ? "light" : "accent"}
-      className="h-16 w-full min-w-[256px] overflow-hidden md:max-w-[256px]"
+      className="min-h-[4rem] w-full min-w-[256px] overflow-hidden md:w-fit"
       onClick={() => {
         modals.case({
           clientCase,
         });
       }}
     >
-      <div className="flex flex-row justify-start md:justify-end">
-        <ArrowRightIcon height={24} />
-        <p className="ml-4 text-lg font-bold">{clientCase.title}</p>
+      <div className="flex flex-row items-center justify-start md:justify-end">
+        <div>
+          <ArrowRightIcon height={24} />
+        </div>
+        <p className="ml-4 text-lg font-bold md:hidden">
+          {textEllipsis(clientCase.title, 30)}
+        </p>
+        <p className="ml-4 hidden text-lg font-bold md:block">
+          {clientCase.title}
+        </p>
       </div>
-      <p className="text-left">{textEllipsis(clientCase.subTitle, 30)}</p>
+      <p className="ml-10 overflow-hidden text-left md:text-right">
+        {clientCase.subTitle}
+      </p>
     </Button>
   );
 };
