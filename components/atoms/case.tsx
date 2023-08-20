@@ -7,6 +7,7 @@ import { SpringColors } from "../../types/spring-colors";
 import sanityImageUrl from "../../util/sanity-image-url";
 import { Flex } from "./flex";
 import Title from "./title";
+import { modals } from "../molecules/modal/modals";
 
 export interface CaseProps {
   case: SanityTypes.ClientCase;
@@ -26,6 +27,12 @@ const linkColors: Record<keyof Pick<SpringColors, "brand" | "accent">, string> =
 
 const Case = ({ case: caseProp, color = "accent" }: CaseProps) => {
   const savedCase = useRef(caseProp);
+
+  const handleModal = () => {
+    modals.case({
+      clientCase: savedCase.current,
+    });
+  };
 
   return (
     <motion.div
@@ -67,19 +74,15 @@ const Case = ({ case: caseProp, color = "accent" }: CaseProps) => {
             height={100}
           />
         </Flex>
-        <div
+        <button
           className={`group rounded-b-lg transition-colors duration-300 ease-in-out ${linkColors[color]}`}
+          onClick={handleModal}
         >
-          <a
-            href={savedCase.current.link}
-            target="_blank"
-            rel="noreferrer"
-            className="flex h-full w-full flex-row items-center p-4 text-lg"
-          >
+          <div className="flex h-full w-full flex-row items-center p-4 text-lg">
             Check out more here
             <ArrowRightIcon className="ml-3 h-6 w-6 transition-all duration-300 ease-in-out group-hover:ml-6 group-hover:scale-x-110" />
-          </a>
-        </div>
+          </div>
+        </button>
       </Flex>
     </motion.div>
   );
