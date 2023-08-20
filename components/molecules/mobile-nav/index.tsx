@@ -1,7 +1,8 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import React, { use, useEffect, useRef } from "react";
+import React from "react";
 import useBoolean from "../../../hooks/use-boolean";
+import { useScrollLock } from "../../../hooks/use-lock-scroll";
 import { useCurrentColor } from "../../../stores/global";
 import {
   useIsMobileNavOpen,
@@ -11,8 +12,6 @@ import setClasses from "../../../util/set-classes";
 import Button from "../../atoms/button";
 import { Flex } from "../../atoms/flex";
 import Logo from "../../atoms/logo";
-import { useScrollLock } from "../../../hooks/use-lock-scroll";
-import useIsFirstRender from "../../../hooks/use-first-render";
 
 const wrapperVariants: Variants = {
   initial: {
@@ -273,7 +272,7 @@ const Component = ({
         <NavToggle
           onClick={() => {
             lock();
-            actions.setOpen();
+            actions.toggle();
           }}
         />
       </Flex>
