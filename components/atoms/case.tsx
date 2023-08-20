@@ -55,7 +55,10 @@ const Case = ({ case: caseProp, color = "accent" }: CaseProps) => {
         justify="between"
         className={`h-fit w-72 rounded-lg ${colors[color]} pt-4 text-left shadow-md md:h-96 md:w-80`}
       >
-        <Title size="2xl" className="px-4 font-black">
+        <Title
+          size="xl"
+          className="w-full overflow-hidden text-ellipsis whitespace-nowrap px-4 font-black"
+        >
           {savedCase.current.title}
         </Title>
         <p className="my-5 px-4 text-lg font-medium">
