@@ -1,3 +1,4 @@
+import React from "react";
 import { AllSpringSizes } from "../../types/spring-sizes";
 import setClasses from "../../util/set-classes";
 
@@ -23,19 +24,17 @@ const titleSize: AllSpringSizes = {
   "9xl": "text-9xl",
 };
 
-const Title = ({
-  tag: Tag = "h1",
-  size = "md",
-  children,
-  className,
-  ...rest
-}: TitleProps) => {
-  const classNames = setClasses([titleSize[size], className]);
-  return (
-    <Tag className={classNames} {...rest}>
-      {children}
-    </Tag>
-  );
-};
+const Title = React.forwardRef<HTMLHeadingElement, TitleProps>(
+  ({ tag: Tag = "h1", size = "md", children, className, ...rest }, ref) => {
+    const classNames = setClasses([titleSize[size], className]);
+    return (
+      <Tag className={classNames} {...rest} ref={ref}>
+        {children}
+      </Tag>
+    );
+  }
+);
+
+Title.displayName = "Title";
 
 export default Title;

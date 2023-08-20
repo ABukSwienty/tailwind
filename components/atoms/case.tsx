@@ -55,30 +55,38 @@ const Case = ({ case: caseProp, color = "accent" }: CaseProps) => {
         justify="between"
         className={`h-fit w-72 rounded-lg ${colors[color]} pt-4 text-left shadow-md md:h-96 md:w-80`}
       >
-        <Title
-          size="xl"
-          className="w-full overflow-hidden text-ellipsis whitespace-nowrap px-4 font-black"
-        >
-          {savedCase.current.title}
-        </Title>
-        <p className="my-5 px-4 text-lg font-medium">
-          {savedCase.current.subTitle}
-        </p>
-        <Flex className="relative h-52 overflow-hidden" align="center">
-          <Image
-            src={sanityImageUrl(savedCase.current.caseImage.image.asset._ref)
-              .width(400)
-              .url()}
-            alt={savedCase.current.caseImage.description}
-            style={{
-              objectFit: "cover",
-            }}
-            width={400}
-            height={100}
-          />
-        </Flex>
+        <div>
+          <Title
+            size="xl"
+            className="w-full cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap px-4 font-black"
+          >
+            {savedCase.current.title}
+          </Title>
+
+          <div className="mt-4 px-4">
+            <span className="rounded-md border py-1 px-2 text-xs font-medium">
+              keynote
+            </span>
+          </div>
+          <p className="my-5 px-4 text-lg font-medium">
+            {savedCase.current.subTitle}
+          </p>
+        </div>
+
+        <Image
+          src={sanityImageUrl(
+            savedCase.current.caseImage.image.asset._ref
+          ).url()}
+          alt={savedCase.current.caseImage.description}
+          style={{
+            objectFit: "cover",
+          }}
+          className="h-64 w-full overflow-hidden"
+          width={400}
+          height={256}
+        />
         <button
-          className={`group rounded-b-lg transition-colors duration-300 ease-in-out ${linkColors[color]}`}
+          className={`group w-full grow rounded-b-lg transition-colors duration-300 ease-in-out ${linkColors[color]}`}
           onClick={handleModal}
         >
           <div className="flex h-full w-full flex-row items-center p-4 text-lg">
