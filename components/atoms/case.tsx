@@ -63,11 +63,11 @@ const Case = ({ case: caseProp, color = "accent" }: CaseProps) => {
             {savedCase.current.title}
           </Title>
 
-          <div className="mt-4 px-4">
+          {/* <div className="mt-4 px-4">
             <span className="rounded-md border py-1 px-2 text-xs font-medium">
               keynote
             </span>
-          </div>
+          </div> */}
           <p className="my-5 px-4 text-lg font-medium">
             {savedCase.current.subTitle}
           </p>
